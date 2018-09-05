@@ -1,0 +1,812 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./home/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./home/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="./home/css/home.css"/>
+    <script type="text/javascript" src="./home/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./home/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script type="text/javascript" src="./home/js/index.js"></script>
+    <link rel="icon" href="http://www.manykit.com/public/images/manykit.png" type="image/x-icon" />
+    <title>许多米</title>
+</head>
+<body>
+    <div id="box">
+        <!-- 头部 -->
+        <div id="head">
+            <div class="headbox">
+                <a href="/" class="brand"><img class="" src="../public/images/logo.png" alt=""></a>
+                <ul class="headul">
+					<li><a href="http://www.manykit.com" target="blank">首页</a></li>
+                    <li><a href="https://shop194048616.taobao.com/" target="blank">商城</a></li>
+                    <li><a href="/codeplay" target="blank">编程玩</a></li>
+                    <li><a id='zero-robot01'>零一机器人</a></li>
+                    <!-- <li><a href="/model" target="blank">模多多</a></li> -->
+                    <!-- <li><a href="/" target="blank">智能玩具</a></li> -->
+					<li><a href="/">引擎</a></li>
+                    <li><a href="http://www.manykit.com/forum/index.php" target="blank">论坛</a></li>
+                    <li style="background-color: #24292E;" id='login'><span class="login-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">登录/</span><span class="regesiter-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">注册</span></li>
+					<li id='user' class='login-user close'></li>
+                    <script>
+                        ! function() {
+                            $('.login-home').click(function(event) {
+                                $('.container21').show()
+                                $('.container19').hide()
+                            });
+                            $('.regesiter-home').click(function(event) {
+                                $('.container19').show()
+                                $('.container21').hide()
+                            });
+                        }()
+                    </script>
+                    <div class="search"><a href="/"><img src="../public/home/images/search.png" alt=""></a></div> 
+                </ul>
+                <input type="text" class="search-home fn-hide" placeholder="search">
+				
+				<!-- 下拉框 -->
+				 <ul class="headul-down close">
+					<li><a href="#">教育版</a></li>
+					<li><a href="http://www.manykit.com/robot">极客版</a></li>
+				 </ul>
+				
+				
+				<!-- 下拉框 -->
+				 <ul class="user-down close">
+					<li id='loginoutbutton'>退出</li>
+				 </ul>
+				 
+				 <!-- 退出 -->
+				 <script type="text/javascript">
+				!function(){
+					$('#loginoutbutton').click(
+						function(){
+					        $.ajax({
+					            type:"GET",
+					            url:"/res/logout",
+					            success:function(msg){
+					                console.log(msg);
+									$('#login').removeClass('close');
+									$('#user').addClass('close');
+									sessionStorage.usernamesession ='';
+									sessionStorage.userid ='';
+					            }
+					        });
+						}
+					)
+				}()
+                </script>
+				
+				<script  type="text/javascript">
+					! function() {
+						$("#user").mouseover(function(){
+						  $('.user-down ').removeClass('close')
+						});
+						$("#user").mouseout(
+							function(){
+								$('.user-down ').addClass('close')
+							}
+						)
+						$(".user-down").mouseover(function(){
+						   $('.user-down').removeClass('close')
+						});
+						$(".user-down").mouseout(function(){
+						   $('.user-down').addClass('close')
+						});
+					}()
+				</script>
+				
+				
+				<script  type="text/javascript">
+					! function() {
+						$("#zero-robot01").mouseover(function(){
+						  $('.headul-down').removeClass('close')
+						});
+						$("#zero-robot01").mouseout(
+							function(){
+								$('.headul-down').addClass('close')
+							}
+						)
+						$(".headul-down").mouseover(function(){
+						   $('.headul-down').removeClass('close')
+						});
+						$(".headul-down").mouseout(function(){
+						   $('.headul-down').addClass('close')
+						});
+					}()
+				</script>
+                <!-- <div class="lang landown">
+                    <p>中文</p>
+                    <ul class="hide">
+                        <li><a href="/">中文</a></li>
+                        <li><a href="/en">英文</a></li>
+                        <li><a href="/es-es">西班牙</a></li>
+                    </ul>
+                </div> -->
+                <!-- <form id="search_form" class='' action="http://www.baidu.com/baidu" target="_blank">
+                    <input type='text' id='q' name='word' class='search span3' value='' placeholder="搜索" />
+                </form> -->
+            </div> 
+        </div>
+
+        <!-- 模态框开始 -->
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content container21">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">登录</h4>
+                </div>
+                <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                    <label for="recipient-name" class="control-label">用户名:</label>
+                    <input type="text" class="form-control" id="recipient-name" placeholder="请输入用户名">
+                    </div>
+                    <div class="form-group">
+                    <label for="recipient-password" class="control-label">密码:</label>
+                    <input type="password" class="form-control" id="recipient-password" placeholder="请输入密码">
+                    </div>
+                    <button type="button" class="btn btn-primary" id='loginbutton'>登录</button>
+                </form>
+                </div>
+				<!-- 验证是否登陆 -->
+				<script type="text/javascript">
+				!function(){
+					let username;
+					let password;
+					$.ajax({
+						type:"GET",
+						url:"/res/verify",
+						success:function(msg){
+						if(msg.data.userid){
+							$('#login').addClass('close');
+							$('#user').removeClass('close');
+							console.log(msg.data.username);
+							$('#user').html(msg.data.username);
+							$('#exampleModal').modal('hide');
+							this.userCenter = true; 
+						}else{
+							$('#login').removeClass('close');
+							$('#user').addClass('close');
+							$('#exampleModal').modal('hide');
+						}
+						}
+					});
+				}()
+                </script>
+				<!-- 登陆 -->
+				<script type="text/javascript">
+				!function(){
+					let username;
+					let password;
+
+					let loginpassword;
+
+					let public_key;
+	
+					let encryptPassword;
+					$('#loginbutton').click(
+						function(){
+						username=$('#recipient-name').val();
+						password=$('#recipient-password').val();
+					        $.ajax({
+					            type:"POST",
+					            url:"/res/login",
+					            data:{username:username,password:password },
+					            dataType:'json',
+					            success:function(msg){
+					                console.log(msg);
+									$('#login').addClass('close');
+									$('#user').removeClass('close');
+									console.log(msg.data.username);
+									$('#user').html(msg.data.username);
+									$('#exampleModal').modal('hide');
+					            }
+					        });
+						}
+					)
+				}()
+                </script>
+				
+
+				
+				
+                <div class="modal-footer">
+                <button id="qqLoginBtn">qq登录</button>
+                <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101442688" data-redirecturi="http://www.manykit.com/static/qq/qqback.html" charset="utf-8"></script>
+                <script type="text/javascript">
+                    !function(){
+                        let cbLoginFun = function(oInfo, oOpts) {
+                        console.log(oInfo);
+                        QC.Login.getMe(function(openId, accessToken) {
+                            console.log(openId);
+                            console.log(accessToken);
+                        })
+                        };
+                        let cbLogoutFun = function() {
+                            console.log("注销成功!");
+                        };
+                        let quit = function() {
+                            QC.Login.signOut()
+                        }
+                        QC.Login({
+                            btnId: "qqLoginBtn" //插入按钮的节点id
+                        }, cbLoginFun, cbLogoutFun);
+                    }()
+                </script>
+                <!-- qq登录脚本 -->
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+                </div>
+
+            </div>
+
+
+             <div class="modal-content container19 fn-hide">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">注册</h4>
+                </div>
+                <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                    <label for="recipient-name-01" class="control-label">用户名:</label>
+                    <input type="text" class="form-control" id="recipient-name-01" placeholder="请输入用户名">
+                    </div>
+                    <div class="form-group">
+                    <label for="recipient-mail" class="control-label">邮箱:</label>
+                    <input type="text" class="form-control" id="recipient-mail" placeholder="请输入邮箱">
+                    </div>
+                    <div class="form-group">
+                    <label for="recipient-password-01" class="control-label">密码:</label>
+                    <input type="password" class="form-control" id="recipient-password-01" placeholder="请输入密码">
+                    </div>
+                    <div class="form-group">
+                    <label for="recipient-password-02" class="control-label">确认密码:</label>
+                    <input type="password" class="form-control" id="recipient-password-02" placeholder="请确认密码">
+                    </div>
+                    <button type="button" class="btn btn-primary" id='registerbutton'>注册</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+		<!-- 注册 -->
+		<script type="text/javascript">
+		!function(){
+			let reguserName = /^[a-zA-Z0-9]\w{3,16}$/;
+			let reguserpassword = /^[a-zA-Z0-9]\w{4,16}$/;
+			let regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			// let logintextpassword = this.publicKey;
+			// let privatekey = new NodeRSA(logintextpassword);
+			// this.formRegister.encryptPassword = privatekey.encrypt(this.formRegister.password, 'base64');
+			$('#registerbutton').click(
+				function(){
+					if(!reguserName.test($('#recipient-name-01').val())){
+						alert('用户名长度在4-16之间， 只能包含字母、数字');
+						<!-- this.$message({ -->
+						<!-- message: '用户名长度在4-16之间， 只能包含字母、数字', -->
+						<!-- center: true -->
+						<!-- });    -->
+					}
+					else if($('#recipient-mail').val()==''||$('#recipient-mail').val().length<12){
+						alert('邮箱格式不正确');
+						<!-- this.$message({ -->
+						<!-- message: '邮箱格式不正确', -->
+						<!-- center: true -->
+						<!-- });   -->
+					}else if(!regEmail.test($('#recipient-mail').val())){
+						alert('邮箱格式不正确');
+						<!-- this.$message({ -->
+						<!-- message: '邮箱格式不正确', -->
+						<!-- center: true -->
+						<!-- });   -->
+					}
+					else if(!reguserpassword.test($('#recipient-password-01').val())){
+						alert('密码长度（6~20 英文+数字）');
+						<!-- this.$message({ -->
+						<!-- message: '密码长度（6~20 英文+数字）', -->
+						<!-- center: true -->
+						<!-- }); -->
+					}
+					else if( $('#recipient-password-01').val()!==$('#recipient-password-02').val()){
+						alert('密码输入不一致');
+						<!-- this.$message({ -->
+						<!-- message: '密码输入不一致', -->
+						<!-- center: true -->
+						<!-- }); -->
+					}
+					else
+					{    
+						$.ajax({
+							type:"POST",
+							url:'/res/signup',
+							data:{
+								username:$('#recipient-name-01').val(),
+								password:$('#recipient-password-01').val(),
+								mail:$('#recipient-mail').val()
+							},
+							dataType:'json',
+							success:function(msg){
+								if(msg.status==200){
+									let registermsg = msg.errmsg;
+									alert(registermsg );
+									$('#exampleModal').modal('hide');
+									<!-- this.$message({ -->
+									<!-- message: registermsg, -->
+									<!-- center: true -->
+									<!-- });  -->
+								}else{
+									let registermsg = msg.errmsg;
+									alert(registermsg);
+									<!-- this.$message({ -->
+									<!-- message:registermsg, -->
+									<!-- center: true -->
+									<!-- });  -->
+								}
+							}
+						});
+					}
+				}
+			)
+		}()
+		</script>
+
+        <!-- 模态框开始 -->
+        <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        })
+        </script>
+
+
+        <!-- 内容主题 -->
+        <div id="contain">
+            <!-- <div class="nav-button"> -->
+                <!-- <span class="education-button">教育版</span> -->
+                <!-- <span class="geek-button">极客版</span>  -->
+            <!-- </div> -->
+            <div class="education">
+                <img class="edu-img" src="./home/images/edu.png" alt="">
+				<img class="pro-img close" src="./home/images/pro.png" alt="">
+				<button class="geek-product">课程产品</button>
+                <button class="geek-summary">课程概述</button>
+                <button class="geek-outline">课程大纲</button>
+				<button class="geek-enter" data-toggle="modal" data-target="#signModal" data-whatever="报名">报名</button>
+				
+				
+        <!-- 模态框开始 -->
+        
+        <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel" style='text-align:center;'>扫码报名</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;" >
+					<img style="text-align:center; width:200px;height200px;" class="" src="http://www.manykit.com/robot/home/images/qr.png" alt="">
+                </div>
+            </div>
+            </div>
+        </div>
+		
+		
+				<script>
+				!function(){
+					$('.geek-outline').click(
+						function(){
+							$('.outline').addClass('close')
+							$('.product').addClass('close')
+							$('.summary').removeClass('close')
+							$('.geek-summary').addClass('closecolor')
+							$('.geek-outline').removeClass('closecolor')
+						}
+					)
+					$('.geek-summary').click(
+						function(){
+							$('.outline').removeClass('close')
+							$('.summary').addClass('close')
+							$('.product').addClass('close')
+							$('.geek-outline').addClass('closecolor')
+							$('.geek-summary').removeClass('closecolor')
+						}
+					)
+					$('.geek-product').click(
+						function(){
+							$('.outline').addClass('close')
+							$('.summary').addClass('close')
+							$('.product').removeClass('close')
+						}
+					)
+				}()
+				</script>
+                <div class="summary close">
+                    <ul class="summary-ul">
+                        <li class="summary-li">
+                            <p class="main-title">Arduino/加工/工厂行   课程（1000元，第1节为体验课200元）</p>
+                            <p class="second-title">1. Arduino介绍</p>
+                            <p class="small-title">什么是Arduino</p>
+                            <p class="small-title">各种各样的Arduino</p>
+                            <p class="small-title">Arduino各种各样的扩展板</p>
+                            <p class="small-title">Blink点亮LED及Arduino传感器编写程序控制一盏LED灯</p>
+                            <p class="small-title">Arduino常用的传感器及其控制</p>
+                        </li>
+                        <li>
+                            <p class="second-title">2. 马达控制</p>
+                            <p class="small-title">电机控制板的常用种类及其价格使用电机控制板控制电机</p>
+                            <p class="small-title">带编码器的电机速度控制</p>
+                        </li>
+                        <li>
+                            <p class="second-title">3. 私服电机及步进电机的常用种类</p>
+                            <p class="small-title">私服电机及机械臂的控制</p>
+                            <p class="small-title">步进电机的控制及机械臂控制</p>
+                        </li>
+                        <li>
+                            <p class="second-title">4. Arduino图形编程图形编程介绍</p>
+                            <p class="small-title">Scatch图形编程</p>
+                            <p class="small-title">Blockly图形编程</p>
+                            <p class="small-title">Snap图形编程</p>
+                            <p class="small-title">使用图形编程开发避障小车</p>
+                        </li>
+                        <li>
+                            <p class="second-title">5. 平面图的设计，激光切割机使用使用CoreDraw进行画图</p>
+                            <p class="small-title">使用CoreDraw进行平面设计</p>
+                            <p class="small-title">使用激光切割机进行切割</p>
+                        </li>
+                        <li>
+                            <p class="second-title">6.3D打印的设计，3D打印机的使用使用123Design进行3D打印设计</p>
+                            <p class="small-title">学习了解123DDesign</p>
+                            <p class="small-title">3D打印机的种类介绍（FDM，光固化，彩色，工业等）使用3D打印机进行结构件打印</p>
+                        </li>
+                        <li>
+                            <p class="second-title">7. 赛格电子市场，及赛格众创空间参观介绍</p>
+                            <p class="small-title">通过视频直播介绍赛格电子市场</p>
+                            <p class="small-title">通过视频直播或者录像介绍赛格众创空间</p>
+                            <p class="small-title">介绍零一机器人淘宝店</p>
+                        </li>
+                        <li>
+                            <p class="second-title">8. 金属板件加工工厂的视频直播</p>
+                            <p class="small-title">通过视屏直播东莞金属板件加工厂，3D打印机工厂</p>
+                            <p class="small-title">了解大型金属激光切割机</p>
+                            <p class="small-title">了解车床，铣床等机器人机器</p>
+                        </li>
+                        <li>
+                            <p class="main-title">PHOENIXEngine跨平台开发（1000元）</p>
+                            <p class="second-title">1. 引擎介绍</p>
+                            <p class="small-title">PHOENIX是什么，应用场景，怎么用</p>
+                            <p class="small-title">PHEONIX引擎项目结构</p>
+                            <p class="small-title">Application和Project框架</p>
+                        </li>
+                        <li>
+                            <p class="second-title">2.2D，及3D场景及动画的创建</p>
+                            <p class="small-title">如何使用PHEONIX创建跨平台用户界面如果设置UI界面的自适应</p>
+                            <p class="small-title">构建PC自适应UI的注意点</p>
+                            <p class="small-title">创建3D场景，添加模型</p>
+                            <p class="small-title">添加动画模型，进行动画控制创建地形，天空</p>
+                        </li>
+                        <li>
+                            <p class="second-title">3. 串口控制</p>
+                            <p class="small-title">使用Serial进行与Arduino的串口通信</p>
+                            <p class="small-title">使用PHOENIXFrameWireFall与Arduino进行直接通信</p>
+                        </li>
+                        <li>
+                            <p class="second-title">4. 在Windows，Linux，Android，iOS上编译如何将PHOENIX编译到各个操作系统平台</p>
+                        </li>
+                       <li>
+                            <p class="second-title">5. 蓝牙</p>
+                            <p class="small-title">2.0的蓝牙开发</p>
+                            <p class="small-title">4.0的蓝牙开发</p>
+                            <p class="small-title">Android和iOS下的蓝牙开发蓝牙</p>
+                            <p class="small-title">在Windows上如何使用蓝牙模块</p>
+                        </li>
+                         <li>
+                            <p class="second-title">6. 编辑器及工具的使用（该课程可以只讲Lua接口导出部分）</p>
+                            <p class="small-title">Lua语音接口的导出</p>
+                            <p class="small-title">Launcher的使用</p>
+                            <p class="small-title">使用Nirvana创建你的项目，进行辅助编辑</p>
+                            <p class="small-title">如何使用PXCompiler进行材质的修改和扩充</p>
+                        </li>
+                         <li>
+                            <p class="second-title">7. 使用PHOENIXEngine构建跨平台语音对话语音开发接口的介绍</p>
+                            <p class="small-title">国内相关语音平台的介绍</p>
+                            <p class="small-title">百度语音库介绍，图灵机器人介绍</p>
+                            <p class="small-title">编码调用语音功能，构建跨平台语音</p>
+                        </li>
+                         <li>
+                            <p class="second-title">8. 使用PHOENIXEngine构建远程视频监控 MJPEG-STRAMER的安装及其使用</p>
+                            <p class="small-title">使用UIVLCFrame播放视频使用WebView播放视频</p>
+                            <p class="small-title">VR视频查看模式</p>
+                        </li>
+                         <li class="summary-li">
+                            <p class="main-title">SALM2D开发（800元）</p>
+                            <p class="second-title">1. 使用PHOENIXEngine插件构建自主室自主建图常用的SLAM算法介绍</p>
+                            <p class="small-title">SLAM2D插件的介绍</p>
+                            <p class="small-title">Slam2D需要配套的传感器，及硬件模块的安装获得雷达事实障碍数据</p>
+                            <p class="small-title">使用SLAM2D进行自主建图</p>
+                        </li>
+                         <li class="summary-li">
+                            <p class="second-title">2. 自动路径规划</p>
+                            <p class="small-title">使用导航模块进行自主路径规划自动无线充电技术介绍</p>
+                        </li>
+                         <li class="summary-li">
+                            <p class="main-title">人脸识别课程（600元）</p>
+                            <p class="second-title">1.使用PHOENIXEngine进行人脸识别以及人脸识别常用算法介绍</p>
+                            <p class="small-title">人脸识别常用算法介绍</p>
+                            <p class="small-title">使用PHOENIX开发，认识一个人打招呼的程序</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="outline close">
+					<ul class="summary-ul">
+                        <li class="summary-li">
+                            <p class="main-title">课程名称</p>
+                            <p class="small-title">面向软件工程师的机器人课系列课程</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">课程内容</p>
+                            <p class="small-title">Arduino/加工/工厂行</p>
+							<p class="small-title">PHOENIXEngine跨平台开发</p>
+							<p class="small-title">ALM2D及AI开发</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">课程特色</p>
+                            <p class="small-title">跨平台SLAM机器人开发课程</p>
+							<p class="small-title">手把手带你从0到1打造自己的个人DIY机器人中英文双语教学，认识中外行业大牛</p>
+							<p class="small-title">课程与实践相互结合</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">需要哪些知识和工具？</p>
+                            <p class="small-title">大学编程初学者，将要学习C语音的学生，拥有一定的编程基础，熟练使用C语言开发上课之前，通过编程技能基础测试</p>
+							<p class="small-title">拥有一台PHOENIXFrame机器人套件，或者一套例似的机器人，包含（车辆骨架，马达，Arduino，传感器，操作系统主板（LattePanda，或者任意一台性能不错的Linux板卡），电池等）</p>
+						</li>
+                        <li class="summary-li">
+                            <p class="main-title">谁可以上这门课程？</p>
+                            <p class="small-title">想要学习机器人开发的学生，工程师</p>
+							<p class="small-title">想要构建自己第一台个人机器人的学生，老师，开发者</p>
+							<p class="small-title">对编程有兴趣的人</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">学习您的课程后，学生能够实现或达成哪些目标？</p>
+							<p class="main-title">直接结果</p>
+                            <p class="small-title">学会从0开始构建可以被控制的履带机器人</p>
+							<p class="small-title">学会使用PHOENIXEngine开发跨平台机器人应用</p>
+							<p class="small-title">学会使用Slam2D插件，外加雷达开发导航自主导航机器人</p>
+							<p class="small-title">购买硬件的学员，拥有一台可以自主SLAM导航，语音对话的个人DIY机器人</p>
+							<p class="small-title">学生可以开发地机器人，学有所用，增强自信</p>
+							<p class="main-title">间接结果</p>
+                            <p class="small-title">建立对对软件硬件比较系统性的理解，并且能够动手开发，对接下来学习更有目的性针对性，例如工业控制课程等</p>
+							<p class="small-title">学生可以去校外公司实习，对毕业就业有非常大的帮助；学习优异者将获得丰富的知识和技能以满足一般机器人公司的应聘需求</p>
+                        </li>
+                           <li class="summary-li">
+                            <p class="main-title">课程售价</p>
+                            <p class="small-title">课程共计16-20节课，每节200元人民币，共计3200元课程硬件，随意用户自己准备或者购买</p>
+							<p class="small-title">如需一站式购买，硬件费用为</p>
+							<p class="small-title">Windows版本</p>
+							<p class="small-title">基础版1800元  （骨架+马达+机械臂+传感器+电池+屏幕  +  激光雷达  ）+  LattlePanda（RMB849-RMB1759）一站购买费用：3200+1800+1759 = 7000元人民币</p>
+							<p class="small-title">Linux版本：</p>
+							<p class="small-title">基础版1800元  （骨架+马达+机械臂+传感器+电池+屏幕  +  激光雷达  ）+  树莓派（230RM）一站购买费用：3200+230+1759 = 5189元人民币</p>
+						</li>
+                             <li class="summary-li">
+                            <p class="main-title">课程老师</p>
+                            <p class="small-title">MANY，曾就职于腾讯互娱，资深软件工程师</p>
+							<p class="small-title">TONY，曾就职于NASA，资深机器人系统工程师</p>
+							<p class="small-title">LOKI，深度学习工程师，对深度学习拥有非常丰富的经验</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">课程额外服务</p>
+                            <p class="small-title">两年内机器人套件相关，硬件更新8折优惠</p>
+							<p class="small-title">课程期间每周六下午2点，深圳地区，华强北赛格免费1小时现场面对面答疑一年华强北，赛格众创空间，实验室免费使用服务</p>
+							<p class="small-title">深圳地区1次免费的工厂加工参观服务</p>
+                        </li>
+                        <li class="summary-li">
+                            <p class="main-title">源码及文档</p>
+                            <p class="small-title">https://github.com/manykits/PHOENIXEngine https://github.com/manykits/PHOENIXEngine/wiki</p>
+                        </li>
+                           <li class="summary-li">
+                            <p class="main-title">课程保障</p>
+                            <p class="small-title">通过测试录用的学员，包教包会，直到教会为止。</p>
+                        </li>
+						<li class="summary-li">
+                            <p class="main-title">结业</p>
+                            <p class="small-title">无论你以何种方式，只有您通过零一机器人编程培训，并且最终测试合格，零一机器人将颁发相关学习证书。这虽然只是一份荣誉，但建见证   你的这一段成长历程。工程师在这里相遇，相识，学习一门课程，认识一群朋友</p>
+                        </li>
+						<li class="summary-li">
+                            <p class="main-title">您可以选择的未来</p>
+                            <p class="small-title">所有通过零一机器人编程培训，最终毕业的学院。都有机会担任零一机器人青少年STEAM课程老师。在周末时，根据零一机器人的安排，获得为青少年小朋友上课的机会。这不但是自身学习能力一个应用的一个场景，也能培养工程师与人沟通，交流的能力。同时您还能获得一份不错的额外收入。</p>
+                        </li>
+						<li class="summary-li">
+                            <p class="main-title">课程愿景</p>
+                            <p class="small-title">零一机器人教育，融合优秀的工程师对教育的发自深入的理解。因而课程非常有针对性。 学会了开发甚至直接可以去找相关的工作。</p>
+							<p class="small-title">零一机器人的绝大部分收入将开发和维护PHOENIXEngine软件系统，PHOENIXFrame机器人硬件的升级。我们致力于为开源社区提供跨平台，开源，使用简单，功能强大的机器人软件系统，为用户提供物美价廉的机器人硬件。</p>
+							<p class="small-title">零一机器人坚信，通过教育所获得的收入，需要最大化的回馈给这个社会。零一机器人每年将会从收入中拿出5%用于支持贫困山区的地区的机  器人教育，让偏远地区的小朋友也能享受到和发达地区一样的教育。</p>
+					   </li>
+						<li class="summary-li">
+                            <p class="main-title">附加</p>
+                            <p class="small-title">您的参与将不断促使我们，将开源的跨平台机器人PHOENIXEngine开发的更加完善，强大，让人人都能开发机器人成为可能，任何一个购买零一机器人课程或者硬件套件的人将获得零一机器人，用户称号。</p>
+							<p class="small-title">现在报名，前500名获得零一机器人将额外获得，探险者称号。</p>
+							<p class="small-title">许多米社区www.ManyKit.com将终身保留这些称号，并且将在网站重要页面，显示出最核心信息。许多米社区www.ManyKit.com对所有称号拥有终身解释权。</p>
+						</li>
+                    </ul>
+                </div>
+				
+				 <div class="product">
+					 <p class="title">开发机器人从未如此简单</p>
+					 <div class="title2"><span class="phoenix">PHOENIXFrame</span><img class="line-img" src="./home/images/line.png" alt=""><span class="diy">为DIY学习而生的机器人套件</span></div>
+					 <div class="robot-text">
+						<ul>
+							<li>边拼边学</li>
+							<li>动手编程</li>
+							<li>灵活多变</li>
+							<li>自主建图</li>
+							<li>寻路导航</li>
+							<li>语音对话</li>
+							<li>图像识别</li>
+							<li>无线充电</li>
+							<li>...</li>
+						</ul>
+					 </div>
+					 <div class='robot-pic'>
+						<div class='close' id='r1'><img  class='robot-img' src="./home/images/robot1.jpg" alt=""></div>
+						<div class='close' id='r2'><img  class='robot-img' src="./home/images/robot2.jpg" alt=""></div>
+						<div id='r3'><img class='robot-img' src="./home/images/robot3.png" alt=""></div>
+						<div class='close' id='r4'><img  class='robot-img' src="./home/images/robot4.jpg" alt=""></div>
+						<div class='close' id='r5'><img  class='robot-img' src="./home/images/robot5.jpg" alt=""></div>
+					</div>
+					<div class='robot-img-01'><img src="./home/images/01.jpg" alt=""></div>
+					<div class='robot-img-02'><img src="./home/images/02.jpg" alt=""></div>
+					<div class='robot-img-03'><img src="./home/images/03.jpg" alt=""></div>
+					<div class='robot-img-04'><img src="./home/images/04.jpg" alt=""></div>
+					<div class='robot-img-05'><img src="./home/images/05.jpg" alt=""></div>
+					
+					<script>
+					!function(){
+						$('.robot-img-01').hover(
+							function(){
+								$('#r1').removeClass('close')
+								$('#r2').addClass('close')
+								$('#r3').addClass('close')
+								$('#r4').addClass('close')
+								$('#r5').addClass('close')
+							}
+						)
+						$('.robot-img-02').hover(
+							function(){
+								$('#r1').addClass('close')
+								$('#r2').removeClass('close')
+								$('#r3').addClass('close')
+								$('#r4').addClass('close')
+								$('#r5').addClass('close')
+							}
+						)
+						$('.robot-img-03').hover(
+							function(){
+								$('#r1').addClass('close')
+								$('#r2').addClass('close')
+								$('#r3').removeClass('close')
+								$('#r4').addClass('close')
+								$('#r5').addClass('close')
+							}
+						)
+						$('.robot-img-04').hover(
+							function(){
+								$('#r1').addClass('close')
+								$('#r2').addClass('close')
+								$('#r3').addClass('close')
+								$('#r4').removeClass('close')
+								$('#r5').addClass('close')
+							}
+						)
+						$('.robot-img-05').hover(
+							function(){
+								$('#r1').addClass('close')
+								$('#r2').addClass('close')
+								$('#r3').addClass('close')
+								$('#r4').addClass('close')
+								$('#r5').removeClass('close')
+							}
+						)
+					}()
+				</script>
+				
+				
+					<div class="title3"><span class="phoenix">PHOENIXEngine</span><img class="line-img" src="./home/images/line.png" alt=""><span class="diy">像开发游戏一样开发你的机器人</span></div>
+					<div class='map-img'><img src="./home/images/map.png" alt=""></div>
+					<div class="robot-text-1">
+						<ul>
+							<li></li>
+							<li>跨平台开发</li>
+							<li>（WINDOWS,LINUX</li>
+							<li>ABDROID,IOS)</li>
+							<li>脚本编程</li>
+							<li>串口，蓝牙2.0/4.0</li>
+							<li>TCP/UDP网络服务器</li>
+							<li>2D/3D渲染</li>
+							<li>Arduino固件通信</li>
+							<li>LVC远程视频</li>
+							<li>跨平台语音识别</li>
+							<li>图形编程</li>
+							<li>SLAM建图导航</li>
+							<li>游戏化人工智能库</li>
+							<li>...</li>
+						</ul>
+					 </div>
+					 <p class="last">赛格众创空间SLAM地图</p>
+				</div>
+            </div>
+            <script>
+            $.ajax({ url: "http://www.manykit.com/robot/data.json", success: function(data){
+
+            }});
+            </script>
+
+
+
+            
+            <!-- <div class="education">
+                <img class="edu-img" src="./home/images/edu.png" alt="">
+                <span class="geek-summary">课程概述</span>
+                <span class="geek-outline">课程大纲</span>
+
+                <div class="summary">
+                    <ul class="summary-ul">
+                        <li class="summary-li">
+                            <p class="main-title">Arduino/加工/工厂行   课程（1000元，第1节为体验课200元）</p>
+                            <p class="second-title">1. Arduino介绍</p>
+                            <p class="small-title">什么是Arduino</p>
+                            <p class="small-title">各种各样的Arduino</p>
+                            <p class="small-title">Arduino各种各样的扩展板</p>
+                            <p class="small-title">Blink点亮LED及Arduino传感器编写程序控制一盏LED灯</p>
+                            <p class="small-title">Arduino常用的传感器及其控制</p>
+                        </li>
+                        <li>
+                            <p class="main-title">Arduino/加工/工厂行   课程（1000元，第1节为体验课200元）</p>
+                            <p class="second-title">1. Arduino介绍</p>
+                            <p class="small-title">什么是Arduino</p>
+                            <p class="small-title">各种各样的Arduino</p>
+                            <p class="small-title">Arduino各种各样的扩展板</p>
+                            <p class="small-title">Blink点亮LED及Arduino传感器编写程序控制一盏LED灯</p>
+                            <p class="small-title">Arduino常用的传感器及其控制</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    
+                </div>
+            </div> -->
+        </div>
+
+
+
+
+
+
+
+        <!-- 尾部 -->
+        <div id="footer">
+            <div class="footbox">
+                <img class="footlogo" src="http://www.manykit.com/public/home/images/footlogo.png" alt="">
+                <p class="many">深圳许多米科技有限公司/粤ICP备17130138号-1</p>
+                <img class="stateBtn" src="http://www.manykit.com/public/home/images/play.png" alt="">
+                <audio autoplay="autoplay" id="music" data-state ="1">   
+                    <!-- <source src="./home/sound/storms.mp3" type="audio/mpeg"> -->
+                </audio>
+                <p class="phone">商务/投资：13382304658</p>
+                <img class="qr" src="http://www.manykit.com/public/home/images/qr.png" alt="">
+            </div>
+          
+        </div>
+    </div>      
+</body>
+</html>
+
+
