@@ -1,0 +1,424 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.css"/>
+    <link rel="stylesheet" href="./css/bootstrapValidator.css"/>
+    <link rel="stylesheet" href="./css/bootstrapValidator.min.css"/>
+    <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrapValidator.js"></script>
+    <script type="text/javascript" src="./js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <title>XZdemo</title>
+</head>
+<body>
+    <div id="header">
+        <!-- 标题开始  -->
+        <div class="container">
+        <p class="title01 isbackg">注册新账号</p> 
+        <p class="title02">绑定已有账号</p> 
+        <div class="line"></div>
+        <div class="contain01">
+            <!-- 标题开始  -->
+            <!-- 第一行表单开始  -->
+            <div class="formcontent">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <form class="form-inline">
+                            <div class="form-group" style="margin-left: -13px;">
+                                <label for="recipient-name-01">用户名</label>
+                                <input type="text" class="form-control" id="recipient-name-01" placeholder="用户名" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 第一行表单开始  -->
+
+                <!-- 第二行表单开始 -->
+                <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="recipient-mail">邮箱</label>
+                                    <input type="text" class="form-control" id="recipient-mail" placeholder="请输入绑定邮箱" required>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                <!-- 第二行表单结束 -->
+
+                <!-- 第三行表单开始 -->
+                <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="recipient-password-01">密码</label>
+                                        <input class="form-control" name="password" type="password" placeholder="请输入密码"  id="recipient-password-01" autocomplete="off" required>
+                                    </div>
+                                </form>
+                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                            <form class="form-inline">
+                                <div class="form-group" style="margin-left: -24px;">
+                                    <label for="recipient-password-02">确认密码</label>
+                                    <input class="form-control" name="confirmpassword" type="password" placeholder="确认密码"  id="recipient-password-02" autocomplete="off" required>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+            <!-- 第三行表单结束 -->
+            <!-- 提交表单开始 -->
+            <button type="submit" class="btn btn-primary fourline" id='registerbutton'>确认</button>
+         <!-- 提交表单开始 -->
+        </div>
+
+        <div class="contain02 isdispaly">
+            <!-- 标题开始  -->
+            <!-- 第一行表单开始  -->
+            <div class="formcontent">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <form class="form-inline">
+                            <div class="form-group" style="margin-left: -13px;">
+                                <label for="recipient-name-02">用户名</label>
+                                <input type="text" class="form-control" id="recipient-name-02" placeholder="用户名或邮箱" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 第一行表单开始  -->
+
+                <!-- 第三行表单开始 -->
+                <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="recipient-password-03">密码</label>
+                                        <input class="form-control" name="password" type="password" placeholder="请输入密码"  id="recipient-password-03" autocomplete="off" required>
+                                    </div>
+                                </form>
+                        </div>
+                </div>
+
+            </div>
+            <!-- 第三行表单结束 -->
+            <!-- 提交表单开始 -->
+            <button type="submit" class="btn btn-primary fourline" id='loginbutton'>确认</button>
+         <!-- 提交表单开始 -->
+        </div>
+
+
+    </div>
+    </div>         
+</body>
+
+		<!-- 注册 -->
+		<script type="text/javascript">
+		!function(){
+			let reguserName = /^[a-zA-Z0-9]\w{3,16}$/;
+			let reguserpassword = /^[a-zA-Z0-9]\w{4,16}$/;
+			let regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			var _csrf;
+			console.log(sessionStorage.info)
+			console.log(sessionStorage.openid)
+			// let logintextpassword = this.publicKey;
+			// let privatekey = new NodeRSA(logintextpassword);
+			// this.formRegister.encryptPassword = privatekey.encrypt(this.formRegister.password, 'base64');
+			$('#registerbutton').click(
+				function(){
+					if(!reguserName.test($('#recipient-name-01').val())){
+						alert('用户名长度在4-16之间， 只能包含字母、数字');
+						<!-- this.$message({ -->
+						<!-- message: '用户名长度在4-16之间， 只能包含字母、数字', -->
+						<!-- center: true -->
+						<!-- });    -->
+					}
+					else if($('#recipient-mail').val()==''||$('#recipient-mail').val().length<12){
+						alert('邮箱格式不正确');
+						<!-- this.$message({ -->
+						<!-- message: '邮箱格式不正确', -->
+						<!-- center: true -->
+						<!-- });   -->
+					}else if(!regEmail.test($('#recipient-mail').val())){
+						alert('邮箱格式不正确');
+						<!-- this.$message({ -->
+						<!-- message: '邮箱格式不正确', -->
+						<!-- center: true -->
+						<!-- });   -->
+					}
+					else if(!reguserpassword.test($('#recipient-password-01').val())){
+						alert('密码长度（6~20 英文+数字）');
+						<!-- this.$message({ -->
+						<!-- message: '密码长度（6~20 英文+数字）', -->
+						<!-- center: true -->
+						<!-- }); -->
+					}
+					else if( $('#recipient-password-01').val()!==$('#recipient-password-02').val()){
+						alert('密码输入不一致');
+						<!-- this.$message({ -->
+						<!-- message: '密码输入不一致', -->
+						<!-- center: true -->
+						<!-- }); -->
+					}
+					else
+					{    
+						$.ajax({
+							type:"POST",
+							url:'/res/signup',
+							data:{
+								username:$('#recipient-name-01').val(),
+								password:$('#recipient-password-01').val(),
+								mail:$('#recipient-mail').val(),
+								openid:sessionStorage.openid,
+								info:sessionStorage.info,
+								isbind:1
+							},
+							dataType:'json',
+							success:function(msg){
+								if(msg.status==200){
+									window.location.href = "http://www.manykit.com"; 
+									$.ajax({
+										type:"POST",
+										url:"/res/login",
+										data:{username:$('#recipient-name-01').val(),password:$('#recipient-password-01').val()},
+										dataType:'json',
+										success:function(msg){
+											if(msg.errmsg=='密码错误'){
+												alert('密码错误');
+											}
+											if(msg.errmsg=='此账号不存在'){
+												alert('此账号不存在');
+											}
+											if(msg.status==200){
+												alert('账号绑定成功');
+											}
+
+										},
+									});
+								}else{
+									let registermsg = msg.errmsg;
+								}
+							}
+						});	
+						$.ajax({
+							type:"POST",
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader('Authorization', 'Bearer db7a60a5-6c70-4057-b1d4-1dd289895c31');
+							},
+							url:'/forum/api/v2/users',
+							data:{
+								_uid:1,
+								username:$('#recipient-name-01').val(),
+								password:$('#recipient-password-01').val(),
+								email:$('#recipient-mail').val()
+							},
+							dataType:'json',
+							success:function(){
+							}
+						});						
+					}
+				}
+			)
+			
+			$('#loginbutton').click(
+				function(){
+					$.ajax({
+						type:"POST",
+						url:"/res/login",
+						data:{username:$('#recipient-name-02').val(),password:$('#recipient-password-03').val(),openid:sessionStorage.openid,info:sessionStorage.info, qqid:sessionStorage.qqid},
+						dataType:'json',
+						success:function(msg){
+							if(msg.errmsg=='密码错误'){
+								alert('密码错误');
+							}
+							if(msg.errmsg=='此账号不存在'){
+								alert('此账号不存在');
+							}
+							if(msg.status==200){
+								window.location.href = "http://www.manykit.com"; 
+							}
+
+						},
+					});
+					
+					$.ajax({
+						type:"POST",
+						url:"/forum/login",
+						headers : {
+							'Content-Type' : 'application/json; charset=utf-8'
+						},
+						data: JSON.stringify({username:$('#recipient-name-02').val(),password:$('#recipient-password-03').val(),_csrf:sessionStorage.nodebb_csrf,remember:'on',noscript: false }),								
+						dataType:'json',
+						success:function(msg){
+						}
+					});
+												
+												
+				}
+			)
+		}()
+		
+
+		</script>
+							
+							
+		
+		<script>
+			!function(){
+				$('.title01').click(
+					function(){
+						$('.contain01').removeClass('isdispaly')
+						$('.contain02').addClass('isdispaly')
+						$('.title02').removeClass('isbackg')
+						$('.title01').addClass('isbackg')
+					}
+				)
+				$('.title02').click(
+					function(){
+						$('.contain02').removeClass('isdispaly')
+						$('.contain01').addClass('isdispaly')
+						$('.title01').removeClass('isbackg')
+						$('.title02').addClass('isbackg')
+					}
+				)
+			}()
+		</script>
+</html>
+<style>
+/* 公共样式 开始*/
+*{
+    margin: 0;
+    padding: 0;
+}
+#header{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    color: black;;
+    position: relative;
+  }
+#header .container{
+    width: 1200px;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+#header .container .line{
+    width: 420px;
+    height: 3px;
+    position: absolute;
+    left: 390px;
+    top: 252px;
+    background-color:#1969C7;
+}
+#header .container .title01{
+    width: 150px;
+    height: 42px;
+    font-size: 20px;
+    position: relative;
+    top: 211px;
+    left: 440px;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 10px;
+    color: black;
+}
+#header .container .title02{
+    width: 160px;
+    height: 42px;
+    font-size: 20px;
+    position: relative;
+    top: 160px;
+    left: 595px;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 10px;
+    color: black;
+}
+#header .contain01{
+    width: 1200px;
+    height: 90%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#header .contain01 .formcontent{
+    position: relative;
+    top:20%; 
+    width: 800px;
+}
+#header .contain01 .row{
+    width: 800px;
+    height:auto;
+    position: relative;
+    padding-top: 30px;
+    margin-left: 48%;
+}
+#header .contain01 input{
+    width: 300px;
+    height: 32px;
+    font-size: 12px;
+    position: relative;
+    padding-top: 10px;
+}
+#header .contain01 .fourline{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    position: relative;
+    top: 220px;
+	z-index:1000;
+}
+
+#header .contain02{
+    width: 1200px;
+    height: 90%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#header .contain02 .formcontent{
+    position: relative;
+    top:20%; 
+    width: 800px;
+}
+#header .contain02 .row{
+    width: 800px;
+    height:auto;
+    position: relative;
+    padding-top: 30px;
+    margin-left: 48%;
+}
+#header .contain02 input{
+    width: 300px;
+    height: 32px;
+    font-size: 12px;
+    position: relative;
+    padding-top: 10px;
+}
+#header .contain02 .fourline{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    position: relative;
+    top: 220px;
+	z-index:1000;
+}
+.isdispaly{
+    display: none;
+}
+.isbackg{
+    background-color: #1969C7;
+    color: #fff;
+}
+</style>

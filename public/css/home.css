@@ -120,7 +120,7 @@ body{
     color: #fff;
     list-style: none;
     position: absolute;
-    left: 649px;
+    left: 607px;
 }
 #head .headbox .headul li{
     float: left;
@@ -134,7 +134,7 @@ body{
 }
 #head .headbox .login-home{
     color: #fff;
-    padding:36px 0px 36px;
+    padding:8px 0px 8px 12px;
     font-weight: Light;
     font-size: 18px;
     line-height: 21px;
@@ -142,13 +142,14 @@ body{
     cursor: pointer;
     position: relative;
     top: 36px;
+	background:#082a4c;
 }
 #head .headbox .login-regesiter{
     background-color:none!important;
 }
 #head .headbox .regesiter-home{
     color: #fff;
-    padding:36px 0px 36px;
+    padding:8px 12px 8px 0px;
     font-weight: Light;
     font-size: 18px;
     line-height: 21px;
@@ -156,6 +157,7 @@ body{
     cursor: pointer;
     position: relative;
     top: 36px;
+	background:#082a4c;
 }
 #head .headbox .login-user{
 	color: #fff;
@@ -170,7 +172,7 @@ body{
     position: relative;
 	padding:36px 0px 36px;
     top: 0px;
-	left:18px;
+	left:66px;
 	text-align:center;
 }
 #head .headbox .headul li a{
@@ -207,7 +209,7 @@ body{
 	list-style:none;
 	position:absolute;
 	top:90px;
-	left:1050px;
+	left:1109px;
 	width:80px;
 	height:40px;
 	background:#24292E;
@@ -232,7 +234,7 @@ body{
 	list-style:none;
 	position:absolute;
 	top:90px;
-	left:822px;
+	left:781px;
 	width:106px;
 	height:80px;
 	background:#24292E;
@@ -420,7 +422,7 @@ body{
     position: absolute;
     min-width: 120px;
     top: 0px;
-    left: 1030px;
+    right: -60px;
 }
 #ads-tabs .md-tabs li{
     float:left;
@@ -607,7 +609,7 @@ body{
     position: absolute;
     min-width: 120px;
     top: 0px;
-    left: 1052px;
+    right: -60px;
 }
 #ads-tabs-03 .md-tabs-03 li{
     float:left;
@@ -681,7 +683,7 @@ body{
     position: absolute;
     min-width: 120px;
     top: 0px;
-    left: 904px;
+    left: 982px;
 }
 #ads-tabs-04 .md-tabs-04 li{
     float:left;
@@ -780,7 +782,7 @@ body{
     position: absolute;
     min-width: 120px;
     top: 0px;
-    left: 1000px;
+    left: 1072px;
 }
 #ads-tabs-05 .md-tabs-05 li{
     float:left;

@@ -9,6 +9,12 @@
     <script type="text/javascript" src="./public/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="./public/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./public/js/index.js"></script>
+	<script src="https://s19.cnzz.com/z_stat.php?id=1274916154&web_id=1274916154" language="JavaScript"></script>
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274916154'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274916154' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274916154'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274916154%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274916154'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274916154%26online%3D1' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274916154'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274916154%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274916154'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274916154%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
 	<!-- <script src="https://cdn.bootcss.com/jsencrypt/3.0.0-beta.1/jsencrypt.min.js"></script>  -->
     <!-- <script type="text/javascript" src="./public/js/art-template.js"></script> -->
     <link rel="icon" href="./public/images/manykit.png" type="image/x-icon" />
@@ -25,10 +31,55 @@
 			<!-- ) -->
 		<!-- }() -->
 	<!-- </script> -->
+	
+	<!-- 验证是否登陆 -->
+	<script type="text/javascript">
+	!function(){
+		let username;
+		let password;
+		var nodebb_csrf;
+		$.ajax({
+			type:"GET",
+			url:"/res/verify",
+			success:function(msg){
+			if(msg.data.userid){
+				$('#login').addClass('close');
+				$('#user').removeClass('close');
+				$('#user').html(msg.data.username);
+				$('#exampleModal').modal('hide');
+				this.userCenter = true; 
+			}else{
+				$('#login').removeClass('close');
+				$('#user').addClass('close');
+				$('#exampleModal').modal('hide');
+			}
+			}
+		});
+	}()
+	
+	!function(){
+		let username;
+		let password;
+		$.ajax({
+			type:"GET",
+		    async:false,//同步这很关键
+			url:"/forum/api/config",
+			success:function(msg){
+				sessionStorage.nodebb_csrf=msg.csrf_token
+				console.log(sessionStorage.nodebb_csrf)
+			}
+		});
+	}()
+	</script>
+				
+				
 </head>
 <body>
     <div id="box">
         <!-- 头部 -->
+
+  
+  
         <div id="head">
             <div class="headbox">
                 <a href="/" class="brand"><img class="" src="./public/images/logo.png" alt=""></a>
@@ -40,8 +91,9 @@
                     <!-- <li><a href="/model" target="blank">模多多</a></li> -->
                     <!-- <li><a href="/" target="blank">智能玩具</a></li> -->
 					<li><a href="/">引擎</a></li>
-                    <li><a href="http://www.manykit.com/forum/index.php" target="_blank">论坛</a></li>
-                    <li style="background-color: #24292E;" id='login'><span class="login-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">登录/</span><span class="regesiter-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">注册</span></li>
+                    <li><a href="http://www.manykit.com/forum/" target="_blank">论坛</a></li>
+					<li><a href="http://www.manykit.com/codeplay/#/studyvideo" target="_blank">视频</a></li>
+                    <li style="background-color: #24292E; margin-left:20px;" id='login'><span class="login-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">登录/</span><span class="regesiter-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">注册</span></li>
 					<li id='user' class='login-user close'></li>
                     <script>
                         ! function() {
@@ -59,7 +111,7 @@
                             });
                         }()
                     </script>
-                    <div class="search"><a href="/"><img src="./public/images/search.png" alt=""></a></div> 
+                    <!-- <div class="search"><a href="/"><img src="./public/images/search.png" alt=""></a></div>  -->
                 </ul>
                 <input type="text" class="search-home fn-hide" placeholder="search">
 				
@@ -89,9 +141,30 @@
 									$('#user').addClass('close');
 									sessionStorage.usernamesession ='';
 									sessionStorage.userid ='';
+									sessionStorage.isqq=0;
+									location.reload();
 					            }
 					        });
+							
+							$.ajax({
+					            type:"POST",
+					            url:"/forum/logout",
+									headers : {
+									'Content-Type' : 'application/json; charset=utf-8'
+								},
+								data: JSON.stringify({_csrf:sessionStorage.nodebb_csrf,remember:'off',noscript:true }),								
+					            dataType:'json',
+
+					            success:function(){
+									
+					            }
+					        });
+							
+							QC.Login.signOut()
 						}
+						
+
+
 					)
 				}()
                 </script>
@@ -150,7 +223,7 @@
 
         <!-- 模态框开始 -->
         
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style='padding-top:10%'>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style='padding-top:10%;margin-top:95px;'>
             <div class="modal-dialog" role="document">
             <div class="modal-content container21">
                 <div class="modal-header">
@@ -171,52 +244,91 @@
                 </form>
                 </div>
 				
-				<!-- 验证是否登陆 -->
-				<script type="text/javascript">
-				!function(){
-					let username;
-					let password;
-					$.ajax({
-						type:"GET",
-						url:"/res/verify",
-						success:function(msg){
-						if(msg.data.userid){
-							$('#login').addClass('close');
-							$('#user').removeClass('close');
-							$('#user').html(msg.data.username);
-							$('#exampleModal').modal('hide');
-							this.userCenter = true; 
-						}else{
-							$('#login').removeClass('close');
-							$('#user').addClass('close');
-							$('#exampleModal').modal('hide');
-						}
-						}
-					});
-				}()
-                </script>
+
 				<!-- 登陆 -->
 				<script type="text/javascript">
 				!function(){
-					let username;
-					let password;
+					var username;
+					var password;
+					var nodebb_login_csrf=sessionStorage.nodebb_csrf;
+					console.log(nodebb_login_csrf);
 					$('#loginbutton').click(
 						function(){
 						username=$('#recipient-name').val();
 						password=$('#recipient-password').val();
-					        $.ajax({
+					
+							$.ajax({
+					            type:"POST",
+					            url:"/forum/login",
+								headers : {
+									'Content-Type' : 'application/json; charset=utf-8'
+								},
+								data: JSON.stringify({username:username,password:password,_csrf:nodebb_login_csrf,remember:'on',noscript: false }),								
+					            dataType:'json',
+					            success:function(msg){
+					            }
+					        });
+							
+							
+							$.ajax({
 					            type:"POST",
 					            url:"/res/login",
 					            data:{username:username,password:password },
 					            dataType:'json',
 					            success:function(msg){
-					                console.log(msg);
-									$('#login').addClass('close');
-									$('#user').removeClass('close');
-									$('#user').html(msg.data.username);
-									$('#exampleModal').modal('hide');
-					            }
+									if(msg.errmsg=='密码错误'){
+										alert('密码错误');
+									}
+									if(msg.errmsg=='此账号不存在'){
+										alert('此账号不存在');
+									}
+									if(msg.status==200){
+										$('#login').addClass('close');
+										$('#user').removeClass('close');
+										$('#user').html(msg.data.username);
+										$('#exampleModal').modal('hide');
+									}
+
+					            },
 					        });
+							
+							<!-- $.ajax({ -->
+					            <!-- type:"POST", -->
+					            <!-- url:"nodebb/api/ns/login", -->
+					            <!-- data:{username:username,password:password}, -->
+					            <!-- dataType:'json', -->
+					            <!-- success:function(msg){ -->
+									<!-- $('#login').addClass('close'); -->
+									<!-- $('#user').removeClass('close'); -->
+									<!-- $('#user').html(msg.data.username); -->
+									<!-- $('#exampleModal').modal('hide'); -->
+						
+					            <!-- } -->
+					        <!-- }); -->
+							
+											
+							<!-- $.ajax({ -->
+					            <!-- type:"GET", -->
+					            <!-- url:"nodebb/", -->
+					            <!-- dataType:'json', -->
+					            <!-- success:function(msg){ -->
+					                <!-- console.log(msg); -->
+						
+					            <!-- } -->
+					        <!-- }); -->
+								
+
+
+							
+							<!-- $.ajax({ -->
+					            <!-- type:"GET", -->
+					            <!-- url:"nodebb/api/login",					            -->
+					            <!-- success:function(msg){ -->
+					                <!-- console.log(msg); -->
+						
+					            <!-- } -->
+					        <!-- }); -->
+							
 						}
 					)
 				}()
@@ -226,7 +338,8 @@
 				
 				
                 <div class="modal-footer">
-                    <span class="btn_white cur" id="forgetPassword">忘记密码？</span>
+                    <!-- <span class="btn_white cur" id="forgetPassword"></span> -->
+					<span class="btn_white cur"><a class="ap_text" href="http://www.manykit.com/forum/reset">忘记密码？</a></span>
                     <span class="btn_white cur" id="freeRegister">免费注册</span> 
 
                     <script>
@@ -241,43 +354,26 @@
                             });
                         }()
                     </script>
-                <button id="qqLoginBtn">qq登录</button>
+                <button id="qqLoginBtn" class='qqLoginBtn'>qq登录</button>
                 <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101442688" data-redirecturi="http://www.manykit.com/static/qq/qqback.html" charset="utf-8"></script>
                 <script type="text/javascript">
-                    !function(){
+                   
+			
+				   
                         let cbLoginFun = function(oInfo, oOpts) {
-                        console.log(oInfo);
-						console.log(oOpts);
 						let nickname = oInfo.nickname;
+						sessionStorage.info= oInfo.nickname
                         QC.Login.getMe(function(openId, accessToken) {
-                            console.log(openId);
-                            console.log(accessToken);
-                            console.log(nickname);
-									
+							sessionStorage.openid=openId;
+							sessionStorage.accessToken=accessToken;
 							var datalistqq={
 								openid:openId,
 								accesstoken:accessToken, 
 								info:nickname,
 								type:1
-							}				
-															
-							$.ajax({
-								type:"POST",
-								url:'/res/thirdlogin',																				
-								headers : {
-									'Content-Type' : 'application/json; charset=utf-8'
-								},
-								data: JSON.stringify(datalistqq),
-								dataType:'json',
-								success:function(msg){
-								console.log('qq登陆成功');
-								console.log(msg);
-									$('#login').addClass('close');
-									$('#user').removeClass('close');
-									$('#user').html(msg.data.username);
-									$('#exampleModal').modal('hide');
-								}
-							});
+							}			
+							this.continuelogin();
+
                         })
                         };
                         let cbLogoutFun = function() {
@@ -287,9 +383,61 @@
                             QC.Login.signOut()
                         }
                         QC.Login({
-                            btnId: "qqLoginBtn" //插入按钮的节点id
+                           btnId: "qqLoginBtn" //插入按钮的节点id
                         }, cbLoginFun, cbLogoutFun);
-                    }()
+                  
+								
+								function continuelogin(){
+								
+									var datalistqq={
+										openid:sessionStorage.openid,
+										accesstoken:sessionStorage.accessToken, 
+										info:sessionStorage.info,
+										type:1
+									}
+									
+									$.ajax({
+										type:"POST",
+										url:'/res/thirdlogin',																				
+										headers : {
+											'Content-Type' : 'application/json; charset=utf-8'
+										},
+										data: JSON.stringify(datalistqq),
+										dataType:'json',
+										success:function(msg){
+											console.log(msg);
+											var state=msg.data.isband
+											var username= msg.data.username
+											var password= msg.data.password
+											sessionStorage.qqid = msg.data.id
+											console.log(state)
+											if(state==1){
+												$('#login').addClass('close');
+												$('#user').removeClass('close');
+												$('#user').html(msg.data.username);
+												$('#exampleModal').modal('hide');
+												$.ajax({
+													type:"POST",
+													url:"/forum/login",
+													headers : {
+														'Content-Type' : 'application/json; charset=utf-8'
+													},
+													data: JSON.stringify({username:username,password:password,_csrf:sessionStorage.nodebb_csrf,remember:'on',noscript: false }),								
+													dataType:'json',
+													success:function(msg){
+													}
+												});
+											}else{
+												window.location.href = "http://www.manykit.com/register"; 
+											}
+
+										}
+									});
+
+								
+								
+								}
+
                 </script> 
                 </div>
 
@@ -392,7 +540,7 @@
 					            data:{mail: mail },
 					            dataType:'json',
 					            success:function(msg){
-					                alert(msg);
+					                <!-- alert(msg); -->
 					            }
 					        });
 						}
@@ -439,13 +587,11 @@
 					            data:{mail: mail,password:password},
 					            dataType:'json',
 					            success:function(msg){
-					                alert(msg);
+					                <!-- alert(msg); -->
 					            }
 					        });
 						}
 					)
-
-
                 }()
             </script>
 			
@@ -459,6 +605,7 @@
 			let reguserName = /^[a-zA-Z0-9]\w{3,16}$/;
 			let reguserpassword = /^[a-zA-Z0-9]\w{4,16}$/;
 			let regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			var _csrf;
 			// let logintextpassword = this.publicKey;
 			// let privatekey = new NodeRSA(logintextpassword);
 			// this.formRegister.encryptPassword = privatekey.encrypt(this.formRegister.password, 'base64');
@@ -512,22 +659,42 @@
 							success:function(msg){
 								if(msg.status==200){
 									let registermsg = msg.errmsg;
-									alert(registermsg );
+									<!-- alert(registermsg ); -->
 									$('#exampleModal').modal('hide');
-									<!-- this.$message({ -->
-									<!-- message: registermsg, -->
-									<!-- center: true -->
-									<!-- });  -->
+									this.$message({
+									message: registermsg,
+									center: true
+									}); 
 								}else{
 									let registermsg = msg.errmsg;
-									alert(registermsg);
-									<!-- this.$message({ -->
-									<!-- message:registermsg, -->
-									<!-- center: true -->
-									<!-- });  -->
+									<!-- alert(registermsg); -->
+									this.$message({
+									message:registermsg,
+									center: true
+									}); 
 								}
 							}
 						});
+						
+						$.ajax({
+							type:"POST",
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader('Authorization', 'Bearer db7a60a5-6c70-4057-b1d4-1dd289895c31');
+							},
+							url:'/forum/api/v2/users',
+							data:{
+								_uid:1,
+								username:$('#recipient-name-01').val(),
+								password:$('#recipient-password-01').val(),
+								email:$('#recipient-mail').val()
+							},
+							dataType:'json',
+							success:function(){
+							}
+						});
+						
+							
+						
 					}
 				}
 			)
@@ -561,7 +728,7 @@
                     <div class="item active">
                         <img src="./public/images/banner1.jpg" alt="" style="height: 400px; width: 1200px">
                         <div class="carousel-caption carousel-caption-01">
-                             <button class="car-button" style=""><a href="#">查看详情</a></button>
+                             <button class="car-button" style=""><a href="https://shop194048616.taobao.com/shop/view_shop.htm?spm=a313o.201708ban.category.d53.64f0197afFUrA7&mytmenu=mdianpu&user_number_id=3186957166" target='_blank'>查看详情</a></button>
                         </div>
                     </div>
                     <div class="item">
@@ -572,7 +739,7 @@
 								<p class="tab-text03">世界因你而不同</p>
 								<p class="tab-text02">报名参加"零一机器人"编程课</p>
 								<p  class="tab-text04">从0到1创造你的机器人</p>
-								<a href="http://www.manykit.com/robot"><button class='tab-button'>了解详情</button></a>
+								<a href="http://www.manykit.com/robot" ><button class='tab-button' target='_blank'>了解详情</button></a>
 							</div>
                         </div>
                     </div>
@@ -610,9 +777,9 @@
         <div class="module" id="ads-tabs">
             <div id="zero-robot"><p>零一机器人</p></div>
 			<ul class="md-tabs">
-				<li class="robot-hover" id="recomond01">推荐</li>
-				<li id="recomond02">套件</li>
-				<li><a href="">全部</a></li>
+				<!-- <li class="robot-hover" id="recomond01">推荐</li> -->
+				<!-- <li id="recomond02">套件</li> -->
+				<li><a href="https://shop194048616.taobao.com" target='_blank'>全部</a></li>
 			</ul>
 			<div class="md-content">
 				<div id="ads-tabs-crezed01">
@@ -690,80 +857,80 @@
 					</ul>
 				</div>
 				<!-- div2 -->
-				<div id="ads-tabs-crezed02" class="fn-hide">
-					<ul class="redu-goods">
-                        <li>
-                            <a href="">
-                                <div class="rg-list">
-                                    <img src="./public/images/e.png" alt="">
-                                </div>
-                                <div class="rg-name">
-                                    <p>战斗机器人</p>
-                                    <span>蓝牙遥控/人工智能语音</span>
-                                </div>
-                                <div class="price">
-                                    <span>699</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <div class="rg-list">
-                                    <img src="./public/images/b.png" alt="">
-                                </div>
-                                <div class="rg-name">
-                                    <p>战斗机器人</p>
-                                    <span>蓝牙遥控/人工智能语音</span>
-                                </div>
-                                <div class="price">
-                                    <span>699</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <div class="rg-list">
-                                    <img src="./public/images/a.png" alt="">
-                                </div>
-                                <div class="rg-name">
-                                    <p>战斗机器人</p>
-                                    <span>蓝牙遥控/人工智能语音</span>
-                                </div>
-                                <div class="price">
-                                    <span>699</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <div class="rg-list">
-                                    <img src="./public/images/c.png" alt="">
-                                </div>
-                                <div class="rg-name">
-                                    <p>战斗机器人</p>
-                                    <span>蓝牙遥控/人工智能语音</span>
-                                </div>
-                                <div class="price">
-                                    <span>699</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li style="margin-right:0px;">
-                            <a href="">
-                                <div class="rg-list">
-                                    <img src="./public/images/d.png" alt="">
-                                </div>
-                                <div class="rg-name">
-                                    <p>战斗机器人</p>
-                                    <span>蓝牙遥控/人工智能语音</span>
-                                </div>
-                                <div class="price">
-                                    <span>699</span>
-                                </div>
-                            </a>
-                        </li>
-					</ul>
-				</div>
+				<!-- <div id="ads-tabs-crezed02" class="fn-hide"> -->
+					<!-- <ul class="redu-goods"> -->
+                        <!-- <li> -->
+                            <!-- <a href=""> -->
+                                <!-- <div class="rg-list"> -->
+                                    <!-- <img src="./public/images/e.png" alt=""> -->
+                                <!-- </div> -->
+                                <!-- <div class="rg-name"> -->
+                                    <!-- <p>战斗机器人</p> -->
+                                    <!-- <span>蓝牙遥控/人工智能语音</span> -->
+                                <!-- </div> -->
+                                <!-- <div class="price"> -->
+                                    <!-- <span>699</span> -->
+                                <!-- </div> -->
+                            <!-- </a> -->
+                        <!-- </li> -->
+                        <!-- <li> -->
+                            <!-- <a href=""> -->
+                                <!-- <div class="rg-list"> -->
+                                    <!-- <img src="./public/images/b.png" alt=""> -->
+                                <!-- </div> -->
+                                <!-- <div class="rg-name"> -->
+                                    <!-- <p>战斗机器人</p> -->
+                                    <!-- <span>蓝牙遥控/人工智能语音</span> -->
+                                <!-- </div> -->
+                                <!-- <div class="price"> -->
+                                    <!-- <span>699</span> -->
+                                <!-- </div> -->
+                            <!-- </a> -->
+                        <!-- </li> -->
+                        <!-- <li> -->
+                            <!-- <a href=""> -->
+                                <!-- <div class="rg-list"> -->
+                                    <!-- <img src="./public/images/a.png" alt=""> -->
+                                <!-- </div> -->
+                                <!-- <div class="rg-name"> -->
+                                    <!-- <p>战斗机器人</p> -->
+                                    <!-- <span>蓝牙遥控/人工智能语音</span> -->
+                                <!-- </div> -->
+                                <!-- <div class="price"> -->
+                                    <!-- <span>699</span> -->
+                                <!-- </div> -->
+                            <!-- </a> -->
+                        <!-- </li> -->
+                        <!-- <li> -->
+                            <!-- <a href=""> -->
+                                <!-- <div class="rg-list"> -->
+                                    <!-- <img src="./public/images/c.png" alt=""> -->
+                                <!-- </div> -->
+                                <!-- <div class="rg-name"> -->
+                                    <!-- <p>战斗机器人</p> -->
+                                    <!-- <span>蓝牙遥控/人工智能语音</span> -->
+                                <!-- </div> -->
+                                <!-- <div class="price"> -->
+                                    <!-- <span>699</span> -->
+                                <!-- </div> -->
+                            <!-- </a> -->
+                        <!-- </li> -->
+                        <!-- <li style="margin-right:0px;"> -->
+                            <!-- <a href=""> -->
+                                <!-- <div class="rg-list"> -->
+                                    <!-- <img src="./public/images/d.png" alt=""> -->
+                                <!-- </div> -->
+                                <!-- <div class="rg-name"> -->
+                                    <!-- <p>战斗机器人</p> -->
+                                    <!-- <span>蓝牙遥控/人工智能语音</span> -->
+                                <!-- </div> -->
+                                <!-- <div class="price"> -->
+                                    <!-- <span>699</span> -->
+                                <!-- </div> -->
+                            <!-- </a> -->
+                        <!-- </li> -->
+					<!-- </ul> -->
+				<!-- </div> -->
 				<!-- /div2 -->
 			</div>
         </div><!--ads-tabs-->    
@@ -771,43 +938,43 @@
 
         <div class="module-02" id="ads-tabs-02">
                 <div id="zero-robot-02"><p>软件</p></div>
-                <ul class="md-tabs-02">
-                    <li class="robot-hover-02" id="recomond01-02">推荐</li>
-                    <li><a href="">全部</a></li>
-                </ul>
+                <!-- <ul class="md-tabs-02"> -->
+                    <!-- <li class="robot-hover-02" id="recomond01-02">推荐</li> -->
+                    <!-- <li><a href="">全部</a></li> -->
+                <!-- </ul> -->
                 <div class="md-content-02">
                     <div id="ads-tabs-crezed01-02">
                         <ul class="redu-goods-02">
                             <li>
-                                <a href="">
+                                <a href="http://www.manykit.com/codeplay/#/snap" target='_blank'>
                                     <div class="rg-list-02">
                                         <img src="./public/images/snap.png" alt="">
                                     </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="http://www.manykit.com/codeplay/#/Blockly" target='_blank'>
                                     <div class="rg-list-02">
                                         <img src="./public/images/blockly.png" alt="">
                                     </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://github.com/manykits/PHOENIXEngine" target='_blank'>
                                     <div class="rg-list-02">
                                         <img src="./public/images/phoenix.png" alt="">
                                     </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://github.com/manykits" target='_blank'>
                                     <div class="rg-list-02">
                                         <img src="./public/images/github.png" alt="">
                                     </div>
                                 </a>
                             </li>
                             <li style="margin-right:0px;">
-                                <a href="">
+                                <a href="http://www.manykit.com/toycar/#/Toycar">
                                     <div class="rg-list-02">
                                         <img src="./public/images/fight.png" alt="">
                                     </div>
@@ -821,8 +988,8 @@
             <div class="module-03" id="ads-tabs-03">
                     <div id="zero-robot-03"><p>模多多</p></div>
                     <ul class="md-tabs-03">
-                        <li class="robot-hover-03" id="recomond01-03">2D</li>
-                        <li id="recomond02-03">3D</li>
+                        <!-- <li class="robot-hover-03" id="recomond01-03">2D</li> -->
+                        <!-- <li id="recomond02-03">3D</li> -->
                         <li><a href="">全部</a></li>
                     </ul>
                     <div class="md-content-03">
@@ -915,14 +1082,14 @@
                         <ul class="md-tabs-04">
                             <li class="robot-hover-04" id="recomond01-04">图形编程</li>
                             <li id="recomond02-04">机器人</li>
-                            <li id="recomond03-04">3D打印</li>
-                            <li><a href="">全部</a></li>
+                            <!-- <li id="recomond03-04">3D打印</li> -->
+                            <li><a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">全部</a></li>
                         </ul>
                         <div class="md-content-04">
                             <div id="ads-tabs-crezed01-04">
                                 <ul class="redu-goods-04">
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04"  style="text-decoration: none;">
                                                 <p>第一课</p>
                                                 <div class="detail"><span>初识Snap<br>认识Snap操作界面/舞台/角色/开发弹球游戏</span></div> 
@@ -933,7 +1100,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第二课</p>
                                                 <div class="detail"><span>运动和绘图<br/>绝对动作/相对动作/朝向/画笔/开发猫爪球游戏/画一朵花</span></div> 
@@ -944,7 +1111,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第三课</p>
                                                 <div class="detail"><span>外观和声音<br/>角色外观/让角色动起来/对话和思考/图形特效/乐器/音符与节奏/制作动画</span></div> 
@@ -955,7 +1122,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第四课</p>
                                                 <div class="detail"><span>变量<br/>什么是变量/变量的类型与积木形状/类型转换/变量的基础操作/画一个同心圆</span></div> 
@@ -966,7 +1133,7 @@
                                         </a>
                                     </li>
                                     <li style="margin-right:0px;">
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第五课</p>
                                                 <div class="detail"><span>逻辑运算<br/>数值比较/逻辑运算/分支结构/寻迹小车</span></div> 
@@ -982,7 +1149,7 @@
                             <div id="ads-tabs-crezed02-04" class="fn-hide">
                                 <ul class="redu-goods-04">
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第一课</p>
                                                 <div class="detail"><span>闪烁LED<br/>了解I/O引脚/学会使用snap设置引脚模式/学会使用snap设置引脚状态</span></div> 
@@ -993,7 +1160,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第二课</p>
                                                 <div class="detail"><span>按钮控制LED<br/>学会使用snap读取引脚状态/学会使用分支结构</span></div> 
@@ -1004,7 +1171,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第三课</p>
                                                 <div class="detail"><span>制作忽明忽暗LED<br/>了解PWM和模拟信号/学会使用snap设置PWM输出</span></div> 
@@ -1015,7 +1182,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第四课</p>
                                                 <div class="detail"><span>智能LED灯<br/>回顾总结/状态保存/程序延时/机械防抖</span></div> 
@@ -1026,7 +1193,7 @@
                                         </a>
                                     </li>
                                     <li style="margin-right:0px;">
-                                        <a href="">
+                                        <a href="http://www.manykit.com/codeplay/#/Lesson" target="_blank">
                                             <div class="rg-name-04">
                                                 <p>第五课</p>
                                                 <div class="detail"><span>按钮风扇和变速风扇<br/>了解如何快速地学习一个新的传感器或电子元器件/学习使用迷你电机/学会编写子程序</span></div> 
@@ -1040,65 +1207,65 @@
                             </div>
                             <!-- /div2 -->
                              <!-- div3 -->
-                             <div id="ads-tabs-crezed03-04" class="fn-hide">
-                                    <ul class="redu-goods-04">
-                                        <li>
-                                            <a href="">
-                                                <div class="rg-name-04">
-                                                    <p>第三课</p>
-                                                    <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div> 
-                                                </div>
-                                                <div class="price-04">
-                                                    <button>查看详情</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <div class="rg-name-04">
-                                                    <p>第三课</p>
-                                                    <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div> 
-                                                </div>
-                                                <div class="price-04">
-                                                    <button>查看详情</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <div class="rg-name-04">
-                                                    <p>第三课</p>
-                                                    <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div> 
-                                                </div>
-                                                <div class="price-04">
-                                                    <button>查看详情</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <div class="rg-name-04">
-                                                    <p>第三课</p>
-                                                    <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音</span></div> 
-                                                </div>
-                                                <div class="price-04">
-                                                    <button>查看详情</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li style="margin-right:0px;">
-                                            <a href="">
-                                                <div class="rg-name-04">
-                                                    <p>第三课</p>
-                                                    <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音</span></div> 
-                                                </div>
-                                                <div class="price-04">
-                                                    <button>查看详情</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                             <!-- <div id="ads-tabs-crezed03-04" class="fn-hide"> -->
+                                    <!-- <ul class="redu-goods-04"> -->
+                                        <!-- <li> -->
+                                            <!-- <a href=""> -->
+                                                <!-- <div class="rg-name-04"> -->
+                                                    <!-- <p>第三课</p> -->
+                                                    <!-- <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div>  -->
+                                                <!-- </div> -->
+                                                <!-- <div class="price-04"> -->
+                                                    <!-- <button>查看详情</button> -->
+                                                <!-- </div> -->
+                                            <!-- </a> -->
+                                        <!-- </li> -->
+                                        <!-- <li> -->
+                                            <!-- <a href=""> -->
+                                                <!-- <div class="rg-name-04"> -->
+                                                    <!-- <p>第三课</p> -->
+                                                    <!-- <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div>  -->
+                                                <!-- </div> -->
+                                                <!-- <div class="price-04"> -->
+                                                    <!-- <button>查看详情</button> -->
+                                                <!-- </div> -->
+                                            <!-- </a> -->
+                                        <!-- </li> -->
+                                        <!-- <li> -->
+                                            <!-- <a href=""> -->
+                                                <!-- <div class="rg-name-04"> -->
+                                                    <!-- <p>第三课</p> -->
+                                                    <!-- <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能语</span></div>  -->
+                                                <!-- </div> -->
+                                                <!-- <div class="price-04"> -->
+                                                    <!-- <button>查看详情</button> -->
+                                                <!-- </div> -->
+                                            <!-- </a> -->
+                                        <!-- </li> -->
+                                        <!-- <li> -->
+                                            <!-- <a href=""> -->
+                                                <!-- <div class="rg-name-04"> -->
+                                                    <!-- <p>第三课</p> -->
+                                                    <!-- <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音</span></div>  -->
+                                                <!-- </div> -->
+                                                <!-- <div class="price-04"> -->
+                                                    <!-- <button>查看详情</button> -->
+                                                <!-- </div> -->
+                                            <!-- </a> -->
+                                        <!-- </li> -->
+                                        <!-- <li style="margin-right:0px;"> -->
+                                            <!-- <a href=""> -->
+                                                <!-- <div class="rg-name-04"> -->
+                                                    <!-- <p>第三课</p> -->
+                                                    <!-- <div class="detail"><span>蓝牙遥控/人工智能语音蓝牙遥控/人工智能语蓝牙遥控/人工智能蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音蓝牙遥控/人工智能语音</span></div>  -->
+                                                <!-- </div> -->
+                                                <!-- <div class="price-04"> -->
+                                                    <!-- <button>查看详情</button> -->
+                                                <!-- </div> -->
+                                            <!-- </a> -->
+                                        <!-- </li> -->
+                                    <!-- </ul> -->
+                                <!-- </div> -->
                                 <!-- /div3 -->
                         </div>
                     </div><!--ads-tabs--> 
@@ -1107,9 +1274,9 @@
                     <div class="module-05" id="ads-tabs-05">
                             <div id="zero-robot-05"><p>编程玩</p></div>
                             <ul class="md-tabs-05">
-                                <li class="robot-hover-05" id="recomond01-05">SNAP</li>
-                                <li id="recomond02-05">Blockly</li>
-                                <li><a href="">全部</a></li>
+                                <li class="robot-hover-05" id="recomond01-05" style='font-size:15px;'>SNAP</li>
+                                <!-- <li id="recomond02-05">Blockly</li> -->
+                                <li><a href="http://www.manykit.com/codeplay/#/Home/Recommend" target="_blank">全部</a></li>
                             </ul>
 							
                             <div class="md-content-05">
@@ -1212,7 +1379,7 @@
 													<!-- console.log(getdata[i]); -->
 													
 													html +=
-													'<a href="http://www.manykit.com/codeplay/#/Video?='+getdata[i].id+'">'+
+													'<a href="http://www.manykit.com/codeplay/#/Video?='+getdata[i].id+'" target="_blank">'+
 													'<li class="set-session">'+
 															'<input type="hidden" class="sessionid" value="'+getdata[i].id+'"/>'+
 															'<div class="rg-list-05">'+
