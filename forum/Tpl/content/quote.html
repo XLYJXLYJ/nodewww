@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>引用回复</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<script type="text/javascript" src="{site}/Public/JScript/public.js" ></script>
+		<script type="text/javascript" src="{site}/ORG/UBB/ORG/UBB/edit.js"></script>
+		<script type="text/javascript" src="{site}/Public/JScript/Tip.js" ></script>
+		<link rel="stylesheet" href="{site}/ORG/UBB/ORG/UBB/edit.css" type="text/css">
+		<script>
+			var xmlhttp;
+			if (window.ActiveXObject){
+			  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}else{
+			  xmlhttp = new XMLHttpRequest();
+			}
+		  function check()
+		  {
+		  	var addr = window.location.pathname;
+				addr = addr.substring(0,addr.length-shtml.length);
+				addr = addr.split(url);
+				for(var i=0;i<addr.length;i++){
+					if(addr[i]=='id'){
+						addr = addr[i+1];
+						break;
+					}
+				}
+		  	if(document.getElementById('zuozhe1').value=='')
+				{
+					Tip('您没有权限，请先登录!',2);
+					if(!document.getElementById('Tip'))
+					{
+						alert('您没有权限，请先登录!');
+					}
+					return false;
+				}
+				else if(document.getElementById('content').value=='')
+				{
+					Tip('内容不能为空',1);
+					if(!document.getElementById('Tip'))
+					{
+						alert('内容不能为空!');
+					}
+					return false;	
+				}
+				else
+				{
+					var val = document.getElementById('content').value.replace(/\[quote](.*?)\[\/quote]/g,"");
+					if(val.replace(/^\s+/,"").replace(/\s+$/,"")==''){
+						Tip('禁止空引用',1);
+						if(!document.getElementById('Tip'))
+						{
+							alert('禁止空引用!');
+						}
+						return false;	
+					}
+					xmlhttp.open("POST", rooturl + "/index.php/Content" + url + "setParentID" + shtml, true);
+				  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				  xmlhttp.send("talk_id="+addr);
+				  xmlhttp.onreadystatechange = function() {
+				  if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+				  		document.forms['form1'].submit();
+				  	}else{
+				  		return false;
+				  	}
+				  }
+				}
+				return false;
+		  }
+		  function setCaretPosition(tObj, sPos){
+		    if(tObj.setSelectionRange){
+		        setTimeout(function(){
+		            tObj.setSelectionRange(sPos, sPos);
+		            tObj.focus();
+		        }, 0);
+		    }else if(tObj.createTextRange){
+		        var rng = tObj.createTextRange();
+		        rng.move('character', sPos);
+		        rng.select();
+		    }
+		}
+		</script>
+				<!-- Reset Stylesheet -->
+<link rel="stylesheet" href="{site}/Public/resources/css/reset.css" type="text/css" media="screen" />
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="{site}/Public/resources/css/style.css" type="text/css" media="screen" />
+<!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<link rel="stylesheet" href="{site}/Public/resources/css/invalid.css" type="text/css" media="screen" />
+		<style>
+			*{margin:0px;padding:0px;font-family:Arial;}
+			a{text-decoration:none;}
+			#editor{border-collapse:collapse;border:1px solid #f4f4f4;}
+			#editor td{text-align: left;border:none;background:#eeeeee;}
+			input[type="submit"],input[type="reset"]{padding:2px;}
+			.connector{border-color: transparent #333333;border-style: solid;border-width: 4px 0px 4px 4px;height: 0px;width: 0px;display: inline-block;position:relative;top:-1px;margin-left: 6px;margin-right: 6px;
+				*border:none;*width:4px;*height:8px;*background:url('{site}/Public/images/ie6_guide.gif') no-repeat;*top:-4px;_top:4px;*left:-2px;}
+			#web_editor_title select{padding:0;}
+		</style>
+	</head>
+	<body style="font-size:12px;background:url('{site}{mix->home_back_bg}');">
+	<include file="Tpl/Public/top_bar.html">
+		<center>
+			<div style="width:960px;text-align:left;font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';padding:10px 0;font-weight:bold;">
+				<a href="{site}" style="font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;">主页</a>
+					<span class="connector"></span>
+				<?php	if("{bz}"=="1"){	?>
+					<a style="font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;" href="__APP__/Content{url}index{url}id{url}<?php echo $this->array_array['result']['id']; ?>{shtml}"><?php echo $this->array_array['result']['title']; ?></a>
+				<?php	}if("{bz}"=="2"){	?>
+					<a style="font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;" href="__APP__/Content{url}index{url}id{url}<?php echo $this->array_array['result']['rid']; ?>{shtml}"><?php echo getTitle($this->array_array['result']['rid']); ?></a>				
+				<?php	}	?>
+			</div>
+			<form name="form1" id="form" method="post" action="__APP__/List{url}insert2{shtml}" onsubmit="return check()">
+				<div class="content-box" style="background:none;">
+				<table id="editor" width=960 border=1 cellspacing=0 cellpadding=0>
+					<tr style="display:none;"><td>发帖人</td><td><input name="zuozhe1"  id="zuozhe1"  READONLY value="{user}"></td></tr>
+					<tr><td style="padding:0 12px;vertical-align: middle;">引用<br>内容</td><td>
+						<div id="edit" style="width:890px;background:#f9f9f9;margin:0 auto"></div>
+							<script>web_editor_init("edit","890","400","{site}/ORG/UBB")</script>
+							<input type="hidden" name="token" value="{token}">
+					<?php 
+							if("{bz}"=="1"){
+								$con=strip_tags(preg_replace('/<div(.*)<\/div>/', '', $this->array_array['result']['content']));
+							}if("{bz}"=="2"){
+								$con=strip_tags(preg_replace('/<div(.*)<\/div>/', '', $this->array_array['result']['content1']));
+							}
+							$con=addslashes(htmlspecialchars_decode($con,ENT_QUOTES));
+							$con=str_replace(array("\r\n","\n"),"",$con);
+							$sub = array("<script>" => "&lt;script&gt;", "</script>" => "&lt;/script&gt;");
+							$con=strtr($con,$sub);
+						    $val='[quote]'.mb_substr($con,0,100,'utf-8').'......[/quote]';
+						  echo '<script>
+						    	document.getElementById("web_editor_con2").value="'.$val.'";
+						    	document.getElementById("web_editor_con2").value+="\n";
+						  </script>';
+						 if(strpos($val,"&lt;script&gt;")){
+						  	echo '<script>document.getElementById("web_editor_con2").value=document.getElementById("web_editor_con2").value.replace(/&lt;/g,"<");</script>';
+						  }
+						  if(strpos($val,"&lt;/script&gt;")){
+						  	echo '<script>document.getElementById("web_editor_con2").value=document.getElementById("web_editor_con2").value.replace(/&gt;/g,">");</script>';
+						  }
+						  echo '<script>setCaretPosition(document.getElementById("web_editor_con2"),document.getElementById("web_editor_con2").value.length);</script>';
+						?>
+					</td></tr>
+					<tr><td><input class="button" type="submit" value="回复帖子"></td><td style="padding-left:10px;"><input class="button" type="reset"type=reset value="重置"></td></tr>
+				</table>
+				</div>
+			</form>
+		</center>
+		<include file="Tpl/Public/footer.html">
+	</body>
+</html>
+					

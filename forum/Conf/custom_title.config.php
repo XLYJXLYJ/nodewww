@@ -1,0 +1,24 @@
+<?php
+	return array(
+		array('title'=>'新兵','min'=>0,'max'=>30),
+		array('title'=>'列兵','min'=>30,'max'=>80),
+		array('title'=>'下士','min'=>80,'max'=>150),
+		array('title'=>'中士','min'=>150,'max'=>240),
+		array('title'=>'上士','min'=>240,'max'=>350),
+		array('title'=>'准尉','min'=>350,'max'=>480),
+		array('title'=>'少尉','min'=>480,'max'=>630),
+		array('title'=>'中尉','min'=>630,'max'=>800),
+		array('title'=>'上尉','min'=>800,'max'=>1000),
+		array('title'=>'大尉','min'=>1000,'max'=>1200),
+		array('title'=>'少校','min'=>1200,'max'=>1400),
+		array('title'=>'中校','min'=>1400,'max'=>1600),
+		array('title'=>'上校','min'=>1600,'max'=>1800),
+		array('title'=>'大校','min'=>1800,'max'=>2000),
+		array('title'=>'准将','min'=>2000,'max'=>2500),
+		array('title'=>'少将','min'=>2500,'max'=>3000),
+		array('title'=>'中将','min'=>3000,'max'=>3500),
+		array('title'=>'上将','min'=>3500,'max'=>4000),
+		array('title'=>'大将','min'=>4000,'max'=>5000),
+		array('title'=>'元帅','min'=>5000,'max'=>'')
+	);
+?>

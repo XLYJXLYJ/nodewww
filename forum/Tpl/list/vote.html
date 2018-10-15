@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>发表投票</title>
+		<link rel="stylesheet" href="{site}/ORG/UBB/ORG/UBB/edit.css" type="text/css">
+		<script type="text/javascript" src="{site}/Public/JScript/public.js"></script>
+		<script type="text/javascript" src="{site}/ORG/UBB/ORG/UBB/edit.js"></script>
+		<script charset="utf-8" src="{site}/Public/JScript/fatie.js"></script>
+		<!-- Reset Stylesheet -->
+<link rel="stylesheet" href="{site}/Public/resources/css/reset.css" type="text/css" media="screen" />
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="{site}/Public/resources/css/style.css" type="text/css" media="screen" />
+<!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<link rel="stylesheet" href="{site}/Public/resources/css/invalid.css" type="text/css" media="screen" />
+		<script>
+			function add(){
+				var obj=document.getElementById("voteul");
+				var liobj=document.createElement("li");
+				liobj.style.cssText="text-align:left;height:24px;line-height:24px;margin-top:4px;";
+				liobj.innerHTML='<input type="text" name="lival[]" style="width:200px;border: 1px #DFDFDF solid;-webkit-border-radius: 5px;border-radius: 5px;height:20px;"><a style="margin-left:5px;font-size:12px;color:#F91B00" href="javascript:void(0)" onclick="del(this)">删除</a>';
+				obj.appendChild(liobj);
+			}
+			function del(_this){
+				var obj=_this.parentNode.parentNode;
+				obj.removeChild(_this.parentNode);
+			}
+		</script>
+		<style>
+			*{margin:0px;padding:0px;font-family:Arial;}
+			a{text-decoration:none;}
+			#editor{border-collapse:collapse;border:1px solid #f4f4f4;}
+			#editor td{text-align: left;border:none;background:#eeeeee;}
+			input[type="submit"],input[type="reset"]{padding:2px;}
+			.connector{border-color: transparent #333333;border-style: solid;border-width: 4px 0px 4px 4px;height: 0px;width: 0px;display: inline-block;position:relative;top:-1px;margin-left: 6px;margin-right: 6px;
+				*border:none;*width:4px;*height:8px;*background:url('{site}/Public/images/ie6_guide.gif') no-repeat;*top:-2px;*left:-4px;_top:4px;}
+			#web_editor_title select{padding:0;}
+		</style>
+	</head>
+	<body style="font-size:12px;background:url('{site}{mix->home_back_bg}');">
+	<include file="Tpl/Public/top_bar.html">
+		<center>
+			<div style="width:960px;text-align:left;padding:10px 0;font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;">
+				<a href="{site}" style="font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;">主页</a>
+				<?php if(!empty($this->array_array['fb_parent'])){echo '<span class="connector"></span>'.'<a href="'.$this->youyax_url.'/List'.C('default_url').'index'.C('default_url').'f'.C('default_url').$this->array_array['fb_parent']['id'].C('static_url').'">'.$this->array_array['fb_parent']['szone'].'</a>';} ?>
+					<span class="connector"></span>
+				<a style="font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';font-weight:bold;" href="__APP__/List{url}index{url}f{url}{f}{shtml}">{fb->szone}</a>
+					<span class="connector"></span>
+				<span>发布投票</span>
+			</div>
+			<form name=form id=form method=post action="__APP__/List{url}insert1{shtml}" onsubmit="return check();">
+				<div class="content-box" style="background:none;">
+				<table id="editor" width=960 border=1 cellspacing=0 cellpadding=0>
+					<tr style="display:none;"><td>发帖人</td><td align="left"><input name=zuozhe  READONLY value="{user}"><span id="ero" style="color:red;font-size:12px;"></span></td></tr>
+					<tr><td align="left" style="padding:0 12px;vertical-align: middle;">标题</td><td style="padding:10px 0;"><input class="text-input medium-input" name="title" id="title" MAXLENGTH=40 size=50 style="border:1px solid #dfdfdf;"><span id="titerror" style="background:#fffbd9;color:#7d7d7d"></span></td></tr>
+					<tr><td align="center" style="padding:0 12px;vertical-align: middle;">投票<br>选项</td><td style="padding:10px 0;">
+						<div style="width:100%;">
+							<ul id="voteul" style="margin:0px;padding:0px;list-style-type:none;">
+								<li style="text-align:left;height:24px;line-height:24px;margin-top:4px;"><input type="text" name="lival[]" style="width:200px;border: 1px #DFDFDF solid;-webkit-border-radius: 5px;border-radius: 5px;height:20px;"><a style="margin-left:5px;font-size:12px;color:#F91B00" href="javascript:void(0)" onclick="del(this)">删除</a></li>
+								<li style="text-align:left;height:24px;line-height:24px;margin-top:4px;"><input type="text" name="lival[]" style="width:200px;border: 1px #DFDFDF solid;-webkit-border-radius: 5px;border-radius: 5px;height:20px;"><a style="margin-left:5px;font-size:12px;color:#F91B00" href="javascript:void(0)" onclick="del(this)">删除</a></li>
+							</ul>
+							<a style="font-size:13px;color:#F91B00" href="javascript:void(0)" onclick="add()">增加一项</a><span style="font-size:12px;">(最多15个选项,选项最长20个字符)</span>
+						</div>
+					</td></tr>
+					<tr><td align="center" style="padding:0 12px;vertical-align: middle;">主题<br>内容</td><td>
+					<div id="edit" style="width:890px;background:#f9f9f9;margin:0 auto"></div>
+						<script>web_editor_init("edit","890","350","{site}/ORG/UBB")</script>
+					<span id="conerror" style="background:#fffbd9;color:#7d7d7d"></span></td></tr>
+						<input type="hidden" name="f" value="{f}">
+						<input type="hidden" name="token" value="{token}">
+					<tr><td><input class="button" type="submit" value="发帖投票"></td><td style="padding-left:10px;"><input class="button" type="reset" value="重置"></td></tr>
+				</table>
+				</div>
+			</form>
+		</center>
+		<include file="Tpl/Public/footer.html">
+		<script>
+			document.getElementById("web_editor_con2").className+=" text-input textarea";	
+		</script>
+	</body>
+</html>
+					

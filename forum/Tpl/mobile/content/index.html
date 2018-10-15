@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/public.css">
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/post.css">
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/custom.css">
+		<script type="text/javascript" src="{site}/Public/JScript/public.js"></script>
+		<script type="text/javascript" src="{site}/Public/JScript/xiangxi_mobile.js"></script>
+		<script src="{site}/ext_public/audiojs/audiojs/audio.min.js"></script>
+		<link rel="stylesheet" href="{site}/ext_public/SyntaxHighlighter/styles/shCoreDefault.css" type="text/css">
+		<title>{site_config->site_title_mobile}</title>
+		<script>
+		  audiojs.events.ready(function() {
+      audiojs.createAll();
+    });
+	  </script>
+		<style>.dp li{
+border-bottom: 1px solid #fff;border-top: 1px solid #fff;
+}</style>
+<script>
+	function inputFileOnChange(){
+	 	document.forms['form1'].action="{site}/ORG/UBB/ORG/UBB/UploadForEditor.class.php";
+	 	document.forms['form1'].target="file_frame";
+	 	document.forms['form1'].submit();
+	}
+	</script>
+	</head>
+	<body>
+	<!--头部开始-->
+		<header>
+			<div class="top_head white" style="font: normal 18px/1.5 helvetica, verdana, san-serif;">
+	    <div class="box1">
+	        <a href="javascript:history.go(-1);" class="back"></a>
+	    </div>
+	    <div class="box2">
+	        <a href="{site}">{site_config->site_title_mobile}</a></div>
+	    <div class="box3">
+	        	<?php if(empty($_SESSION['youyax_user'])){	?>
+	            <a  href="{site}/ext/mobile/login.php"><span class="header_user">用户登录</span></a>
+	          <?php	}else{	?>
+	          <a href="__APP__/Message{url}show{shtml}"><span class="header_user">{user}</span></a>
+	        <?php	}	?>
+	    </div>
+			</div>
+		</header>
+	<!--头部结束-->	
+	
+	<!--楼主位开始-->
+<?php
+foreach($this->array_two['data1'] as $vo){
+	if($num==0){
+		$page_hide = addslashes($_GET['page']);
+		if(empty($page_hide) || ($page_hide==1)){
+?>
+	<section class="postCon" style="border-bottom: solid 1px #f2f2f2;">
+        <h1><?php echo preg_replace("/\[[^]]*]/","",strip_tags(stripslashes($vo['title']))); ?></h1>
+        <aside><?php echo $vo['time1'];?> | 楼主：<?php echo $vo['zuozhe'];?></aside>
+        <div class="c2"><span style="font-size:16px">
+        <?php 
+					if(($vo['is_visible']==1 && in_array($_SESSION['youyax_user'],$this->array_array['data_visible'])) || $vo['is_visible']==0){
+						if(is_exist_widget("PicMagnifierWidget") && is_active_widget("PicMagnifierWidget")){
+							echo  w("PicMagnifierWidget")->judge(preg_replace('/<div(.*?)<\/div>/', '', $vo['content']));
+						}else{
+							echo preg_replace('/<div(.*)<\/div>/', '', $vo['content']);
+						}
+					}else{ ?>
+							帖子已被设置，回复可见内容。
+					<?php	}	?>	
+        </span></div>
+    <div style="background: #F3F3F3;">
+										<?php
+										$count_mark1 = mysql_fetch_array(mysql_query("select count(*) as count_m1 from " . C('db_prefix') . "mark1 where tid=".$_SESSION['youyax_talk_id']));
+						        $fenye_m1 = new Fenye_comments($count_mark1['count_m1'], 5);
+						        if(empty($_SERVER['QUERY_STRING'])){
+					        		$show_m1  = $fenye_m1->show($_SESSION['youyax_talk_id'],'','');
+					        	}else{
+					        		$tmp = explode("_",$_SERVER['QUERY_STRING']);
+					        		$show_m1  = $fenye_m1->show($_SESSION['youyax_talk_id'],'','',$tmp[2]);
+					        	}
+						        $show_m1  = implode("<span style='width:6px;display:inline-block;'></span>", $show_m1);
+						        $mark1 = $this->select("select * from " . C('db_prefix') . "mark1 where tid=".$_SESSION['youyax_talk_id']. " order by id desc");
+						        if(empty($_SERVER['QUERY_STRING'])){
+					        		$mark1 = array_slice($mark1, 0, 5);
+						        }else{
+						         	$tmp = explode("_",$_SERVER['QUERY_STRING']);
+						         	if($tmp[1] == '' || $tmp[1] ==null){
+					         			$mark1 = array_slice($mark1, $tmp[2]*5-5, 5);
+						        	}else{
+						        		$mark1 = array_slice($mark1, 0, 5);
+						        	}
+						        }
+										 if(!empty($mark1)){
+										?>
+										<ul class="dp">
+										<?php
+										 foreach($mark1 as $m1){
+										 	if($m1['tid']==$vo['id']){
+										   ?>
+												<li style="padding: 0 10px;"><span style="float:left;font-size:12px;color:#57a000;"><?php echo $m1['marker'];?></span>
+													<?php	if($m1['marker'] != $_SESSION['youyax_user']){	?>
+														<span style="cursor:pointer;float:right;font-size:12px;margin-right:10px;color:#57a000;" onclick="showmarkone(<?php echo $_SESSION['youyax_talk_id'];?>,<?php echo $m1['id'];?>,'<?php echo $m1['marker'];?>')">回复</span>
+													<?php	}	?>
+												<p style="font-size:12px;clear:both;"><?php echo $m1['content'];?>(<?php echo $m1['time'];?>)</p></li>
+											<?php
+											}
+									   }
+									   ?>
+									  </ul>
+									<?php
+								   }
+									?>
+									<?php if($count_mark1['count_m1'] > 5){	?>
+										<div class="page"><?php echo $show_m1; ?></div>
+									<?php	}	?>
+</div>
+		<div class="h_d hui">
+			<span onclick="showmarkone(<?php echo $_SESSION['youyax_talk_id'];?>)">点评</span>
+        		<span onclick="window.location.href='__APP__/Content{url}Quote{url}id{url}<?php echo $vo['id'];?>{shtml}';">引用</span>
+        		<?php	if($vo['zuozhe']=="{user}"){ ?>
+			<span onclick="window.location.href='__APP__/Content{url}edit{url}id{url}<?php echo $vo['id'];?>{shtml}';">编辑</span>
+			<?php } ?>
+    </div>
+    </section>
+    <!--楼主位结束-->
+<?php
+	}
+}
+$num++;
+if(!empty($vo['zuozhe1'])){
+?>
+<div class="commentList">
+    <div class="c1 hui">
+        <span class="fl">
+            <?php echo $vo['zuozhe1'];?></span>
+        <time class="fr">
+            <?php echo $vo['time2'];?>&nbsp;&nbsp;<a name="p<?php echo $vo['num2'];?>"> #<?php echo $vo['num2'];?>楼</a></time>
+    </div>
+    <div class="c2"><?php
+									if(is_exist_widget("PicMagnifierWidget") && is_active_widget("PicMagnifierWidget")){
+											echo  w("PicMagnifierWidget")->judge(preg_replace('/<div(.*?)<\/div>/', '', $vo['content1']));
+										}else{
+											echo preg_replace('/<div(.*)<\/div>/', '', $vo['content1']);
+										}
+									?></div>
+		<div style="background: #F3F3F3;">    
+    <?php
+$count_mark2 = mysql_fetch_array(mysql_query("select count(*) as count_m2 from " . C('db_prefix') . "mark2 where tid=".$_SESSION['youyax_talk_id']." and rid=".$vo['id2']));
+$fenye_m2 = new Fenye_comments($count_mark2['count_m2'], 5);
+if(empty($_SERVER['QUERY_STRING'])){
+	$show_m2  = $fenye_m2->show($_SESSION['youyax_talk_id'],$vo['num2'],$vo['id2']);
+}else{
+	$tmp = explode("_",$_SERVER['QUERY_STRING']);
+	$show_m2  = $fenye_m2->show($_SESSION['youyax_talk_id'],$vo['num2'],$vo['id2'],$tmp[2]);
+}
+$show_m2  = implode("<span style='width:6px;display:inline-block;'></span>", $show_m2);
+$mark2 = $this->select("select * from " . C('db_prefix') . "mark2 where tid=".$_SESSION['youyax_talk_id']." and rid=".$vo['id2']. " order by id desc");
+if(empty($_SERVER['QUERY_STRING'])){
+	$mark2 = array_slice($mark2, 0, 5);
+}else{
+ 	$tmp = explode("_",$_SERVER['QUERY_STRING']);
+ 	if($tmp[1] == $vo['id2']){
+ 		$mark2 = array_slice($mark2, $tmp[2]*5-5, 5);
+	}else{
+		$mark2 = array_slice($mark2, 0, 5);
+	}
+}
+	 if(!empty($mark2)){
+	 	?>
+	<ul class="dp">
+	<?php
+	 foreach($mark2 as $m2){
+	 	if($m2['rid']==$vo['id2']){
+	    ?>
+			<li style="padding: 0 10px;"><span style="font-size:12px;color:#57a000;"><?php echo $m2['marker']; ?></span>
+				<?php	if($m2['marker'] != $_SESSION['youyax_user']){	?>
+						<span style="cursor:pointer;float:right;font-size:12px;margin-right:10px;color:#57a000;" onclick="showmark(<?php echo $vo['id2'];?>,<?php echo $_SESSION['youyax_talk_id'];?>,<?php echo $m2['id'];?>,'<?php echo $m2['marker'];?>')">回复</span>
+													<?php	}	?>
+			<p style="font-size:12px;"><?php echo $m2['content'];?>(<?php echo $m2['time'];?>)</p></li>
+		<?php
+		}
+  }
+  ?>
+	 </ul>
+	<?php
+}
+?>
+<?php if($count_mark2['count_m2'] > 5){	?>
+	<div class="page"><?php echo $show_m2;?></div>
+<?php	}	?>
+ </div>
+    <div class="h_d hui">
+    		<span onclick="showmark(<?php echo $vo['id2'];?>,<?php echo $_SESSION['youyax_talk_id'];?>)">点评</span>
+        <span onclick="window.location.href='__APP__/Content{url}Quote{url}id2{url}<?php echo $vo['id2'];?>{url}id{url}<?php echo $vo['id'];?>{shtml}';">引用</span>
+        <?php if($vo['zuozhe1']=="{user}"){	?>
+		<span onclick="window.location.href='__APP__/Content{url}edit{url}id2{url}<?php echo $vo['id2'];?>{shtml}';">编辑</span>
+		<?php } ?>
+    </div>
+</div>
+	<div id="mark<?php echo $vo['id2'];?>" style="display:none;">
+		<div align=right style="width:200px;height:20px;background-color:#ebe8e3;"><b onclick="turnmark('<?php echo $vo['id2'];?>')" style="cursor:pointer;">关闭</b></div>
+		<iframe id="mark_iframe<?php echo $vo['id2'];?>" width=200 height=230 frameBorder=0></iframe>
+	</div>
+<?php	}}?>
+ 		<div class="page" align="center">{showx}</div>
+<div class="commenTxt">
+	<form name="form1"  method="post" action="__APP__/List{url}insert2{shtml}" enctype="multipart/form-data">
+		<input type="hidden" name="zuozhe1" value="{user}">
+		<textarea id="web_editor_con2" name="content" class="hui" placeholder="在这里输入你的回复"></textarea>
+		<input type="hidden" name="token" value="{token}">
+		<a href="javascript:void(0)" class="photo">
+      <input type="file" accept="image/gif,image.jpg,image/png,image.jpeg" name="file" class="file" onchange="inputFileOnChange();">
+    </a>
+		<a href="javascript:void(0)" class="but_1" onclick="if(check()){document.forms['form1'].submit();}" style="width:100px;">回复帖子</a>
+	</form>
+	<iframe name="file_frame" style="display:none;"></iframe>
+</div>
+
+	<!--版权开始-->
+	<footer>
+		<div class="copyright">
+   		<a href="/touch/index.html">Powered BY YouYaX</a>
+  	</div>
+	</footer>
+	<!--版权结束-->
+	<div id="markone" style="display:none;">
+			<div align=right style="width:200px;height:20px;background-color:#ebe8e3;"><b onclick="turnmarkone()" style="cursor:pointer;">关闭</b></div>
+			<iframe id="markone_iframe" width=200 height=230 frameBorder=0></iframe>
+		</div>
+		<script class="javascript" src="{site}/ext_public/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script class="javascript" src="{site}/ext_public/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+		<script class="javascript" src="{site}/ext_public/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+		<script class="javascript" src="{site}/ext_public/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+		<script class="javascript" src="{site}/ext_public/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script class="javascript">
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>

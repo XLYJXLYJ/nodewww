@@ -1,0 +1,36 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.h_d { text-align: right; margin: 5px 0; }
+.h_d a, .h_d span { margin-right: 20px; cursor: pointer; }
+.postCon h1 { text-align: center; padding: 10px 10px 5px; }
+.postCon img,.commentList img { max-width: 99%; margin: 10px auto 0;}
+embed,.audiojs{max-width: 99%;}
+.postCon aside { text-align: center; padding: 0 10px; font-size: 12px; color: #a0a0a0; }
+.postCon aside a { display: inline-block; color: #a0a0a0; background: url(../../images/ico.png) no-repeat 0 -372px; padding-left: 15px; margin-left: 4px; }
+.postCon .fenxiang { margin-top: 10px; overflow: hidden; }
+.postCon .fenxiang .txt { line-height: 40px; font-size: 14px; padding-left: 10px; }
+.commentList { border-bottom: solid 1px #f2f2f2; }
+.commentList .c1 { overflow: hidden; padding: 10px 10px 0;font-size:14px; }
+.commentList .c2,.c2 { /*text-indent: 2em;*/ margin-top: 10px; padding: 0 10px; }
+.commentList legend{ text-indent: 0;}
+.commentList .yinyong { background: #f5f5f5; border: solid 1px #e0e0e0;margin: 5px; padding:5px; }
+.commentList .yinyong p { margin: 0; padding: 0; }
+.commentList .yinyong .c1{ padding:0;}
+.page { display: -webkit-box; display: box; orient: horizontal; padding: 10px 0; }
+.page li { text-align: center; -webkit-box-flex: 1; box-flex: 1; }
+.commenTxt { background: #f9f9f9; border: solid 1px #f1f1f1; padding: 10px; margin-bottom: 20px; }
+.commenTxt textarea { border: solid 1px #f1f1f1; width: 99%; height: 95px; padding: 2px; font-size: 14px; }
+.commenTxt .photo { margin: 0 10px 0 0 }
+.commenTxt .but_3 {font-size: 14px; float: right; }
+/*幻灯*/
+.slideBox{ width:100%;position:fixed;top:0;left:0; z-index:100; display:none;overflow:hidden;}
+.slideTit{ width:98%; height:40px; line-height:40px; background:#000;color:#fff; padding:0 1%;}
+.swipe {width:100%;margin:0 auto;overflow: hidden;visibility: hidden;}
+.swipe-wrap { width:100%;overflow: hidden;position: relative;}
+.swipe .wrap{float:left;width:100%;position: relative;margin:0;padding:0; text-align:center;}
+.swipe .wrap img{max-width:100%;margin:0 auto; display:inline;}
+
+
+
+

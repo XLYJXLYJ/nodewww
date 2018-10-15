@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/public.css">
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/categorylist.css">
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/post.css">
+		<link rel="stylesheet" type="text/css" href="{site}/Public/Css/mobile/custom.css">
+		<script type="text/javascript" src="{site}/Public/JScript/public.js"></script>
+		<title>{site_config->site_title_mobile}</title>
+		<script>
+	document.onreadystatechange = function(){           
+    if (document.readyState == "complete"){
+    	var aes=document.getElementById("pagination").getElementsByTagName("a");
+				var url=window.location.href;
+				var url_array=url.split("=");
+				var page=parseInt(url_array[1]);
+				if(typeof(page)!="number") return;
+				var uclass=document.getElementById("pagination").getElementsByTagName("a");
+				for(var n in uclass)
+				{
+					var str=eval("/fy"+page+"/");
+					if(str.test(uclass[n].className)&&uclass[n].className!=undefined)
+					{
+						uclass[n].style.background="#deccb1";
+					}
+				}
+	}
+}
+		var xmlhttp;
+		if (window.ActiveXObject){
+		  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}else{
+		  xmlhttp = new XMLHttpRequest();
+		}
+function send(val,tc){
+	xmlhttp.open("POST", rooturl + "/index.php/Message" + url + "send" + shtml, true);
+  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xmlhttp.send("mto="+val+"&mcon="+tc);
+  xmlhttp.onreadystatechange = function() {
+  if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+  		alert(xmlhttp.responseText);
+  	}
+  }
+}
+		</script>
+	</head>
+	<body>
+	<!--头部开始-->
+		<header>
+			<div class="top_head white" style="font: normal 18px/1.5 helvetica, verdana, san-serif;">
+	    <div class="box1">
+	        <a href="javascript:history.go(-1);" class="back"></a>
+	    </div>
+	    <div class="box2">
+	        <a href="{site}">{site_config->site_title_mobile}</a></div>
+	    <div class="box3">
+	        <?php if(empty($_SESSION['youyax_user'])){	?>
+	            <a href="{site}/ext/mobile/login.php"><span class="header_user">用户登录</span></a>
+	          <?php	}else{	?>
+	            <a href="__APP__/Index{url}logout{shtml}"><span class="header_user">注销</span></a>
+	        <?php	}	?>
+	    </div>
+			</div>
+			<nav>
+				<a style="<?php if(strpos($_SERVER['REQUEST_URI'],'self')) echo 'background:#dfdfdf;'; ?>width:20%" href="__APP__/Index{url}self{shtml}">头像</a>
+				<a style="<?php if(strpos($_SERVER['REQUEST_URI'],'chpsd')) echo 'background:#dfdfdf;'; ?>width:20%" href="__APP__/Index{url}chpsd{shtml}">密码</a>
+				<a style="<?php if(strpos($_SERVER['REQUEST_URI'],'show')) echo 'background:#dfdfdf;'; ?>width:20%" href="__APP__/Message{url}show{shtml}">消息</a>
+				<a style="<?php if(strpos($_SERVER['REQUEST_URI'],'mypub')) echo 'background:#dfdfdf;'; ?>width:20%" href="__APP__/Index{url}mypub{shtml}">发帖</a>
+				<a style="<?php if(strpos($_SERVER['REQUEST_URI'],'myrep')) echo 'background:#dfdfdf;'; ?>width:20%" href="__APP__/Index{url}myrep{shtml}">回帖</a>
+			</nav>
+		</header>
+	<!--头部结束-->
+ 		<div class="page" id="pagination" align="center">{page}</div>	
+<section class="posts_list">
+<ul class="listBg">
+  <list>
+  	<li>
+      <a title="{myrepinfo.title|strip_tags}" href="__APP__/Content{url}index{url}id{url}{myrepinfo.rid}{shtml}#{myrepinfo.num2}">
+      	<p>{myrepinfo.title}</p>
+      	<aside>
+      		<span>
+      			<em class="hui">{myrepinfo.time2}</em>
+      			<em style="margin-left:10px;">发帖人: {myrepinfo.zuozhe}<?php if("{myrepinfo.zuozhe}"=='')echo '无'; ?></em>
+      		</span>
+      	</aside>
+      </a>
+    </li>
+  </list>
+</ul>
+</section>
+	<!--版权开始-->
+	<footer>
+		<div class="copyright">
+   		<a>Powered BY YouYaX</a>
+  	</div>
+	</footer>
+	<!--版权结束-->
+	</body>
+</html>

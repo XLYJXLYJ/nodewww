@@ -47,7 +47,6 @@
 			url:"/forum/api/config",
 			success:function(msg){
 				sessionStorage.nodebb_csrf=msg.csrf_token
-				console.log(sessionStorage.nodebb_csrf)
 			}
 		});
 	}()
@@ -71,8 +70,8 @@
                     <!-- <li><a href="/model" target="blank">模多多</a></li> -->
                     <!-- <li><a href="/" target="blank">智能玩具</a></li> -->
 					<li><a href="/">引擎</a></li>
-                    <li><a href="http://www.manykit.com/forum/" target="_blank">论坛</a></li>
 					<li><a href="http://www.manykit.com/codeplay/#/studyvideo" target="_blank">视频</a></li>
+                    <li><a href="http://www.manykit.com/forum/" target="_blank">论坛</a></li>
                     <li style="background-color: #24292E; margin-left:20px;" id='login'><span class="login-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">登录/</span><span class="regesiter-home" data-toggle="modal" data-target="#exampleModal" data-whatever="许多米">注册</span></li>
 					<li id='user' class='login-user close'></li>
                     <script>
@@ -116,7 +115,6 @@
 					            type:"GET",
 					            url:"/res/logout",
 					            success:function(msg){
-					                console.log(msg);
 									$('#login').removeClass('close');
 									$('#user').addClass('close');
 									sessionStorage.usernamesession ='';
@@ -231,7 +229,6 @@
 					var username;
 					var password;
 					var nodebb_login_csrf=sessionStorage.nodebb_csrf;
-					console.log(nodebb_login_csrf);
 					$('#loginbutton').click(
 						function(){
 						username=$('#recipient-name').val();
@@ -258,9 +255,15 @@
 					            success:function(msg){
 									if(msg.errmsg=='密码错误'){
 										alert('密码错误');
+										location.reload();	
 									}
 									if(msg.errmsg=='此账号不存在'){
 										alert('此账号不存在');
+										location.reload();	
+									}
+									if(msg.errmsg=='此账号没有激活'){
+										alert('此账号没有激活');
+										location.reload();	
 									}
 									if(msg.status==200){
 										$('#login').addClass('close');
@@ -268,7 +271,7 @@
 										$('#user').html(msg.data.username);
 										$('#exampleModal').modal('hide');
 									}
-
+									location.reload();
 					            },
 					        });
 							
@@ -385,12 +388,10 @@
 										data: JSON.stringify(datalistqq),
 										dataType:'json',
 										success:function(msg){
-											console.log(msg);
 											var state=msg.data.isband
 											var username= msg.data.username
 											var password= msg.data.password
 											sessionStorage.qqid = msg.data.id
-											console.log(state)
 											if(state==1){
 												$('#login').addClass('close');
 												$('#user').removeClass('close');
@@ -529,51 +530,51 @@
             </script>
 
 			<!-- 重至密码 -->
-			 <div class="modal-content container44 fn-hide">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel" style='text-align:center'>重置密码</h4>
-                </div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-						<label for="recipient-name" class="control-label">请输入密码:</label>
-						<input type="text" class="form-control" id="recipient-name-04" placeholder="请输入密码">
-						</div>
-						<div class="form-group">
-						<label for="recipient-password" class="control-label">请确认密码:</label>
-						<input type="password" class="form-control" id="recipient-password-05" placeholder="请确认密码">
-						</div>
-						<button type="button" class="btn  center-block button-size" id='confirmbutton'>确定</button>
-					</form>
-                </div>
-            </div>
+			 <!-- <div class="modal-content container44 fn-hide"> -->
+                <!-- <div class="modal-header"> -->
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                    <!-- <h4 class="modal-title" id="exampleModalLabel" style='text-align:center'>重置密码</h4> -->
+                <!-- </div> -->
+				<!-- <div class="modal-body"> -->
+					<!-- <form> -->
+						<!-- <div class="form-group"> -->
+						<!-- <label for="recipient-name" class="control-label">请输入密码:</label> -->
+						<!-- <input type="text" class="form-control" id="recipient-name-04" placeholder="请输入密码"> -->
+						<!-- </div> -->
+						<!-- <div class="form-group"> -->
+						<!-- <label for="recipient-password" class="control-label">请确认密码:</label> -->
+						<!-- <input type="password" class="form-control" id="recipient-password-05" placeholder="请确认密码"> -->
+						<!-- </div> -->
+						<!-- <button type="button" class="btn  center-block button-size" id='confirmbutton'>确定</button> -->
+					<!-- </form> -->
+                <!-- </div> -->
+            <!-- </div> -->
 			
-            <script>
-                ! function() {
-                    $('#confirmbutton').click(function(event) {
-                        $('.container44').hide()
-                    });
+            <!-- <script> -->
+                <!-- ! function() { -->
+                    <!-- $('#confirmbutton').click(function(event) { -->
+                        <!-- $('.container44').hide() -->
+                    <!-- }); -->
 
-                    let mail;
-                    let password;
-					$('#loginbutton').click(
-						function(){
-                            mail = $('#recipient-mail-02').val();
-                            password = $('#recipient-password-05').val();
-					        $.ajax({
-					            type:"POST",
-					            url:"/res/setpassword",
-					            data:{mail: mail,password:password},
-					            dataType:'json',
-					            success:function(msg){
-					                <!-- alert(msg); -->
-					            }
-					        });
-						}
-					)
-                }()
-            </script>
+                    <!-- let mail; -->
+                    <!-- let password; -->
+					<!-- $('#loginbutton').click( -->
+						<!-- function(){ -->
+                            <!-- mail = $('#recipient-mail-02').val(); -->
+                            <!-- password = $('#recipient-password-05').val(); -->
+					        <!-- $.ajax({ -->
+					            <!-- type:"POST", -->
+					            <!-- url:"/res/setpassword", -->
+					            <!-- data:{mail: mail,password:password}, -->
+					            <!-- dataType:'json', -->
+					            <!-- success:function(msg){ -->
+					                <!-- <!-- alert(msg); --> -->
+					            <!-- } -->
+					        <!-- }); -->
+						<!-- } -->
+					<!-- ) -->
+                <!-- }() -->
+            <!-- </script> -->
 			
 			
             </div>

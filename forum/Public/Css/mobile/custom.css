@@ -1,0 +1,10 @@
+.chpsd{border:solid 1px #dfdfdf; border-radius:5px;}
+.chpsd label{white-space:nowrap;display:inline-block;}
+.chpsd p{ padding:5px 10px;display:-webkit-box;display:box; orient: horizontal;}
+.chpsd input{ width:100%; height:25px; border:solid 1px #eee; border-radius:5px;}
+.chpsd input:focus{ box-shadow:0 0 5px #ccc;}
+.page a{border: solid 1px #d7d7d7;border-radius: 5px;padding: 0 5px;color: #666;text-shadow: 1px 1px 1px #fff;display: inline-block;height: 30px;line-height: 30px;cursor: pointer;margin-left:5px;}
+.posts_list .show a{display:inline;color:#4db74a;}
+.posts_list .listBg a{display:inline;}
+.posts_list .listBg a{padding: 0}
+.listBg li{padding: 10px;}
